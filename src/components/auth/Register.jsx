@@ -17,7 +17,7 @@ const Register = () => {
           sessionStorage.setItem("jwtToken", result.data.token);
           sessionStorage.setItem("username", result.data.user.name);
           setIsRegistered(true);
-          // navigate("/");
+          navigate("/");
         }
       })
       .catch(error => {
