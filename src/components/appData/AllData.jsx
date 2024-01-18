@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { Alert, Snackbar } from "@mui/material";
+import { Alert, Box, Grid, Snackbar } from "@mui/material";
 import { AuthContext } from "../../utils/MyContext";
 import SingleData from "./SingleData";
 import { getAllData, deleteData } from "../../utils/fetchData";
-import { Box } from "@mui/material";
 
 const AllData = () => {
   const { isRegistered } = useContext(AuthContext);
@@ -63,18 +62,19 @@ const AllData = () => {
     <Box
       component="span"
       sx={{
-        display: "inline-block",
-        mx: "2px",
-        transform: "scale(0.8)",
+        display: "flex",
+
         minWidth: 275
       }}>
-      {allData.map(data => (
-        <SingleData
-          data={data}
-          key={data._id}
-          handleDelete={() => handleDelete(data._id)}
-        />
-      ))}
+      <Grid container spacing={2}>
+        {allData.map(data => (
+          <SingleData
+            data={data}
+            key={data._id}
+            handleDelete={() => handleDelete(data._id)}
+          />
+        ))}
+      </Grid>
       <Snackbar
         open={openError}
         autoHideDuration={3000}

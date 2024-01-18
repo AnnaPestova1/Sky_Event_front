@@ -13,7 +13,7 @@ import SharedRow from "./SharedRow";
 
 const SharedTable = ({ data }) => {
   return (
-    <TableContainer component={Paper} style={{ maxHeight: 400, width: "100%" }}>
+    <TableContainer component={Paper}>
       <Table sx={{ maxWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>

@@ -1,21 +1,82 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Button,
+  InputLabel,
+  FormControl,
+  FormHelperText,
+  MenuItem,
+  Select,
+  TextField,
+  Box
+} from "@mui/material";
 import { AuthContext } from "../../utils/MyContext";
-import SolarEclipseData from "../api-data/SolarEclipseData";
+import CometsData from "../api-data/CometsData";
+import AsteroidsData from "../api-data/AsteroidsData";
+import SolarEclipsesData from "../api-data/SolarEclipsesData";
+import LunarEclipsesData from "../api-data/LunarEclipsesData";
+import MeteorShowersData from "../api-data/MeteorShowersData";
 
 const MainPage = () => {
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [skyEvent, setSkyEvent] = useState("");
   const { isRegistered } = useContext(AuthContext);
   const navigate = useNavigate();
+  const handleChangeYear = event => {
+    setYear(event.target.value);
+  };
+  const handleChangeSkyEvent = event => {
+    setSkyEvent(event.target.value);
+  };
   return (
     <>
       <h1>Sky Events</h1>
       {isRegistered ? (
-        <SolarEclipseData />
-      ) : (
         <>
-          <button onClick={() => navigate("/register")}>Register</button>
-          <button onClick={() => navigate("/login")}>Login</button>
+          <FormControl sx={{ m: 1, maxWidth: 120 }}>
+            <TextField
+              id="choose_year"
+              label="Year"
+              value={year}
+              onChange={handleChangeYear}
+              type="number"
+            />
+          </FormControl>
+          <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="choose_sky_event">Sky Event</InputLabel>
+            <Select
+              labelId="choose_sky_event"
+              id="choose_sky_event"
+              value={skyEvent}
+              label="Sky Event"
+              onChange={handleChangeSkyEvent}>
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={"comet"}>Comet</MenuItem>
+              <MenuItem value={"asteroid"}>Asteroid</MenuItem>
+              <MenuItem value={"meteor_shower"}>Meteor Shower</MenuItem>
+              <MenuItem value={"solar_eclipse"}>Solar Eclipse</MenuItem>
+              <MenuItem value={"lunar_eclipse"}>Lunar Eclipse</MenuItem>
+            </Select>
+          </FormControl>
+          <Box display="flex" justifyContent="center" overflow="auto">
+            {skyEvent === "comet" && <CometsData year={year} />}
+            {skyEvent === "asteroid" && <AsteroidsData year={year} />}
+            {skyEvent === "meteor_shower" && <MeteorShowersData year={year} />}
+            {skyEvent === "solar_eclipse" && <SolarEclipsesData year={year} />}
+            {skyEvent === "lunar_eclipse" && <LunarEclipsesData year={year} />}
+          </Box>
         </>
+      ) : (
+        <Box display="flex" gap={1} justifyContent="center">
+          <Button variant="outlined" onClick={() => navigate("/register")}>
+            Register
+          </Button>
+          <Button variant="contained" onClick={() => navigate("/login")}>
+            Login
+          </Button>
+        </Box>
       )}
     </>
   );

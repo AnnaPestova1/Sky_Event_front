@@ -99,12 +99,67 @@ export const deleteData = dataId => {
   });
 };
 
-export const getSolarEclipseData = () => {
+export const getCometsData = year => {
   const jwtToken = sessionStorage.getItem("jwtToken");
-  return axios.get("http://localhost:3000/api/v1/apiData/solarEclipses", {
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${jwtToken}`
+  return axios.get(
+    `http://localhost:3000/api/v1/apiData/comets/${year.toString()}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${jwtToken}`
+      }
     }
-  });
+  );
+};
+
+export const getAsteroidsData = year => {
+  const jwtToken = sessionStorage.getItem("jwtToken");
+  return axios.get(
+    `http://localhost:3000/api/v1/apiData/asteroids/${year.toString()}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${jwtToken}`
+      }
+    }
+  );
+};
+
+export const getSolarEclipsesData = year => {
+  const jwtToken = sessionStorage.getItem("jwtToken");
+  return axios.get(
+    `http://localhost:3000/api/v1/apiData/solarEclipses/${year}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${jwtToken}`
+      }
+    }
+  );
+};
+
+export const getLunarEclipsesData = year => {
+  const jwtToken = sessionStorage.getItem("jwtToken");
+  return axios.get(
+    `http://localhost:3000/api/v1/apiData/lunarEclipses/${year}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${jwtToken}`
+      }
+    }
+  );
+};
+
+export const getMeteorShowersData = year => {
+  const jwtToken = sessionStorage.getItem("jwtToken");
+  return axios.get(
+    `http://localhost:3000/api/v1/apiData/meteorShowers/${year}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${jwtToken}`
+      }
+    }
+  );
 };

@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../../utils/MyContext";
 import { Navigate, Outlet } from "react-router-dom";
 
 const PrivateRoute = () => {
-  const { isRegistered } = useContext(AuthContext);
-  if (isRegistered) {
+  const { isRegistered, setIsRegistered } = useContext(AuthContext);
+
+  if (sessionStorage.jwtToken) {
     return <Outlet />;
   } else {
     return <Navigate to="/" />;

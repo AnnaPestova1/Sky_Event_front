@@ -7,7 +7,6 @@ const SharedRow = ({ data }) => {
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  console.log(data);
   const eventMap = [
     { value: "comet", displayName: "Comet" },
     { value: "asteroid", displayName: "Asteroid" },

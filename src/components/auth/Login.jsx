@@ -16,19 +16,11 @@ const Login = () => {
           sessionStorage.setItem("jwtToken", result.data.token);
           sessionStorage.setItem("username", result.data.user.name);
           setIsRegistered(true);
-          navigate("/data");
+          // navigate("/");
         }
       })
       .catch(error => {
         console.log(error.response.data?.msg);
-        // if (error?.response?.data?.msg.includes("Invalid password")) {
-        //   setErrorOccur(true);
-        //   return;
-        // }
-        // if (error?.response?.data?.msg.includes("Invalid email")) {
-        //   setErrorOccur(true);
-        //   return;
-        // }
       });
   };
   return (
@@ -39,16 +31,12 @@ const Login = () => {
           handleLogin(e);
           e.currentTarget.reset();
         }}>
-        <TextField required name="email" label="email" />
-        <TextField required name="password" label="password" />
+        <TextField required name="email" label="email" type="email" />
+        <TextField required name="password" label="password" type="password" />
         <Button type="submit">Login</Button>
       </form>
     </Paper>
   );
 };
-
-// Login.propTypes = {
-//   setIsRegistered: PropTypes.func
-// };
 
 export default Login;

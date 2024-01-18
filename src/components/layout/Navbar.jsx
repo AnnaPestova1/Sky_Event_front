@@ -38,7 +38,7 @@ const Navbar = () => {
         if (result.status === 200) {
           setIsRegistered(false);
           sessionStorage.clear();
-          navigate("/");
+          // navigate("/");
         }
       })
       .catch(error => {
@@ -130,7 +130,7 @@ const Navbar = () => {
     <header>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar component="nav">
+        <AppBar component="nav" position="absolute">
           <Toolbar>
             <IconButton
               color="inherit"

@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { Alert, Snackbar } from "@mui/material";
-import { getSolarEclipseData } from "../../utils/fetchData";
+import { getAsteroidsData } from "../../utils/fetchData";
 import SharedTable from "./SharedTable";
 
-const SolarEclipseData = () => {
+const AsteroidsData = ({ year }) => {
   const [data, setData] = useState([]);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    getSolarEclipseData()
+    getAsteroidsData(year)
       .then(response => {
-        setData(response.data.data.eclipses_in_year);
+        console.log(response.data.data.data);
+        setData(response.data.data.data);
       })
       .catch(error => {
         console.log(error);
@@ -25,21 +27,17 @@ const SolarEclipseData = () => {
             "unknown error"
         );
       });
-  }, []);
+  }, [year]);
 
-  const eclipseData = data.map((eclipse, id) => {
-    let date = `${eclipse.year}-${eclipse.month}-${eclipse.day}`;
-    let eclipseName = eclipse.event
-      .split(" ")
-      .filter((_, i) => i < 3)
-      .join(" ");
-
+  const asteroidData = data.map((a, id) => {
     return {
       id: id,
-      event: "solar_eclipse",
-      name: eclipseName,
-      date: date,
-      description: eclipse.event
+      event: "comet",
+      name: a[0],
+      date: a[3],
+      description: `Asteroid ${
+        a[0]
+      } approach. Minimal distance from Earth ${Number(a[5]).toFixed(4)} au`
     };
   });
   const handleClose = (event, reason) => {
@@ -50,7 +48,7 @@ const SolarEclipseData = () => {
   };
   return (
     <>
-      <SharedTable data={eclipseData} />
+      <SharedTable data={asteroidData} />
       <Snackbar
         open={openError}
         autoHideDuration={3000}
@@ -64,4 +62,8 @@ const SolarEclipseData = () => {
   );
 };
 
-export default SolarEclipseData;
+AsteroidsData.propTypes = {
+  year: PropTypes.number
+};
+
+export default AsteroidsData;

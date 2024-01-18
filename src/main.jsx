@@ -1,16 +1,13 @@
 import React from "react";
 import ContextWrapper from "./utils/MyContext";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ContextWrapper>
-        <App />
-      </ContextWrapper>
-    </BrowserRouter>
+    <ContextWrapper>
+      <App />
+    </ContextWrapper>
   </React.StrictMode>
 );

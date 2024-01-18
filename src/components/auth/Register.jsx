@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import PropTypes from "prop-types";
 import { Button, TextField, Paper } from "@mui/material";
 import { register } from "../../utils/fetchData";
 import { useNavigate } from "react-router-dom";
@@ -7,9 +6,8 @@ import { AuthContext } from "../../utils/MyContext";
 
 const Register = () => {
   const navigate = useNavigate();
-
+  const { setIsRegistered } = useContext(AuthContext);
   const handleRegister = e => {
-    const { setIsRegistered } = useContext(AuthContext);
     console.log(e.target);
     const { name, email, password } = e.target.elements;
     register(name.value, email.value, password.value)
@@ -19,19 +17,11 @@ const Register = () => {
           sessionStorage.setItem("jwtToken", result.data.token);
           sessionStorage.setItem("username", result.data.user.name);
           setIsRegistered(true);
-          navigate("/data");
+          // navigate("/");
         }
       })
       .catch(error => {
         console.log(error.response.data?.msg);
-        // if (error?.response?.data?.msg.includes("Invalid password")) {
-        //   setErrorOccur(true);
-        //   return;
-        // }
-        // if (error?.response?.data?.msg.includes("Invalid email")) {
-        //   setErrorOccur(true);
-        //   return;
-        // }
       });
   };
   return (

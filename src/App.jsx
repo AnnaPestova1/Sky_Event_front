@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { AuthContext } from "./utils/MyContext";
 import MainPage from "./components/layout/MainPage";
 import Navbar from "./components/layout/Navbar";
@@ -11,6 +11,7 @@ import EditData from "./components/appData/EditData";
 import AddData from "./components/appData/AddData";
 import NotFound from "./components/layout/NotFound";
 import PrivateRoute from "./components/layout/PrivateRoute";
+import { Box } from "@mui/material";
 
 function App() {
   const { setIsRegistered } = useContext(AuthContext);
@@ -22,21 +23,23 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <BrowserRouter>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route element={<PrivateRoute />}>
-          <Route path="/data" element={<AllData />} />
-          <Route path="/data/edit/:slug" element={<EditData />} />
-          <Route path="/data/add" element={<AddData />} />
-        </Route>
-        <Route path="404" element={<NotFound />} />
-        <Route path="*" element={<Navigate to="/404" replace />} />
-      </Routes>
-    </div>
+      <Box pt={10}>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/data" element={<AllData />} />
+            <Route path="/data/edit/:slug" element={<EditData />} />
+            <Route path="/data/add" element={<AddData />} />
+          </Route>
+          <Route path="404" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="/404" replace />} />
+        </Routes>
+      </Box>
+    </BrowserRouter>
   );
 }
 
