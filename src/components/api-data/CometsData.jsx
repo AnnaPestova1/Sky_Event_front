@@ -12,8 +12,8 @@ const CometsData = ({ year }) => {
   useEffect(() => {
     getCometsData(year)
       .then(response => {
-        console.log(response.data.data.data);
-        setData(response.data.data.data);
+        console.log(response.data.cometsData);
+        setData(response.data.cometsData);
       })
       .catch(error => {
         console.log(error);
@@ -29,15 +29,22 @@ const CometsData = ({ year }) => {
       });
   }, [year]);
 
-  const cometData = data.map((comet, id) => {
+  const cometData = data.map(comet => {
     return {
-      id: id,
       event: "comet",
-      name: comet[13] || comet[0],
-      date: comet[3],
-      description: `Comet ${comet[0]} approach. Minimal distance from ${Number(
-        comet[5]
-      ).toFixed(2)} au`
+      name: comet.fullname.trim() || comet.des,
+      date: comet.cd,
+      description: `Comet ${comet.fullname.trim() || comet.des} is a ${
+        comet.orbit_class
+      }. First observation was ${
+        comet.first_obs
+      }, comet was last time observed ${
+        comet.last_obs
+      }.  Minimal distance from Earth is ${Number(comet.dist_min).toFixed(
+        2
+      )} au. happens ${comet.cd}, ${
+        comet.phys_par_title || "comet total magnitude"
+      } is ${comet.h || comet.phys_par_value}.`
     };
   });
   const handleClose = (event, reason) => {

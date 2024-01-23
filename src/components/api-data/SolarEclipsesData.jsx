@@ -28,7 +28,7 @@ const SolarEclipsesData = ({ year }) => {
       });
   }, [year]);
 
-  const eclipseData = data.map((eclipse, id) => {
+  const eclipseData = data.map(eclipse => {
     let date = `${eclipse.year}-${eclipse.month}-${eclipse.day}`;
     let eclipseName = eclipse.event
       .split(" ")
@@ -36,7 +36,6 @@ const SolarEclipsesData = ({ year }) => {
       .join(" ");
 
     return {
-      id: id,
       event: "solar_eclipse",
       name: eclipseName,
       date: date,

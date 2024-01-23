@@ -128,78 +128,78 @@ const Navbar = () => {
 
   return (
     <header>
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <AppBar component="nav" position="absolute">
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: "none" } }}>
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{
-                flexGrow: 1,
-                display: { xs: "none", sm: "block" },
-                cursor: "pointer"
-              }}
-              onClick={() => navigate("/")}>
-              SKY EVENTS
-            </Typography>
-            <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              {navItems.map(item => {
-                return (
-                  item.visible && (
-                    <Button
-                      key={item.displayName}
-                      sx={{ color: "#fff" }}
-                      onClick={() => navigate(item.url)}>
-                      {item.displayName}
-                    </Button>
-                  )
-                );
-              })}
-            </Box>
-            <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              {loginItems.map(item => {
-                return (
-                  item.visible && (
-                    <Button
-                      key={item.displayName}
-                      sx={{ color: "#fff" }}
-                      onClick={item.onClick}>
-                      {item.displayName}
-                    </Button>
-                  )
-                );
-              })}
-            </Box>
-          </Toolbar>
-        </AppBar>
-        <nav>
-          <Drawer
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true // Better open performance on mobile.
-            }}
+      {/* <Box sx={{ display: "flex" }}> */}
+      {/* <CssBaseline /> */}
+      <AppBar component="nav" position="static">
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: "none" } }}>
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            variant="h6"
+            component="div"
             sx={{
-              "display": { xs: "block", sm: "none" },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-                width: drawerWidth
-              }
-            }}>
-            {drawer}
-          </Drawer>
-        </nav>
-      </Box>
+              flexGrow: 1,
+              display: { xs: "none", sm: "block" },
+              cursor: "pointer"
+            }}
+            onClick={() => navigate("/")}>
+            SKY EVENTS
+          </Typography>
+          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            {navItems.map(item => {
+              return (
+                item.visible && (
+                  <Button
+                    key={item.displayName}
+                    sx={{ color: "#fff" }}
+                    onClick={() => navigate(item.url)}>
+                    {item.displayName}
+                  </Button>
+                )
+              );
+            })}
+          </Box>
+          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            {loginItems.map(item => {
+              return (
+                item.visible && (
+                  <Button
+                    key={item.displayName}
+                    sx={{ color: "#fff" }}
+                    onClick={item.onClick}>
+                    {item.displayName}
+                  </Button>
+                )
+              );
+            })}
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <nav>
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true // Better open performance on mobile.
+          }}
+          sx={{
+            "display": { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth
+            }
+          }}>
+          {drawer}
+        </Drawer>
+      </nav>
+      {/* </Box> */}
       <Snackbar
         open={openError}
         autoHideDuration={3000}

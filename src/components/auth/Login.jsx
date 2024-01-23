@@ -1,6 +1,6 @@
-import { Button, TextField, Paper } from "@mui/material";
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import { Box, Button, TextField, Paper } from "@mui/material";
 import { login } from "../../utils/fetchData";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../utils/MyContext";
@@ -24,18 +24,35 @@ const Login = () => {
       });
   };
   return (
-    <Paper>
-      <form
+    <>
+      <Box
+        component="form"
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        gap={1}
         onSubmit={e => {
           e.preventDefault();
           handleLogin(e);
           e.currentTarget.reset();
         }}>
-        <TextField required name="email" label="email" type="email" />
-        <TextField required name="password" label="password" type="password" />
+        <TextField
+          required
+          name="email"
+          label="email"
+          type="email"
+          variant="standard"
+        />
+        <TextField
+          required
+          name="password"
+          label="password"
+          type="password"
+          variant="standard"
+        />
         <Button type="submit">Login</Button>
-      </form>
-    </Paper>
+      </Box>
+    </>
   );
 };
 

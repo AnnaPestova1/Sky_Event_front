@@ -1,6 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, TextField, MenuItem, Select } from "@mui/material";
+import {
+  Box,
+  Button,
+  InputLabel,
+  FormControl,
+  TextField,
+  MenuItem,
+  Select,
+  Typography
+} from "@mui/material";
 
 const EventForm = ({ value, onSubmitForm }) => {
   let dateValue = "";
@@ -31,28 +40,46 @@ const EventForm = ({ value, onSubmitForm }) => {
   };
   return (
     <>
-      <form
+      <Box
+        component="form"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        width="50%"
+        height="100%"
+        gap={2}
+        marginLeft="auto"
+        marginRight="auto"
         onSubmit={e => {
           e.preventDefault();
           handleSubmit(e);
         }}>
-        <Select
-          name="event"
-          label="Event Type"
-          defaultValue={value?.event || ""}>
-          <MenuItem value="comet">Comet</MenuItem>
-          <MenuItem value="asteroid">Asteroid</MenuItem>
-          <MenuItem value="meteor_shower">Meteor Shower</MenuItem>
-          <MenuItem value="solar_eclipse">Solar Eclipse</MenuItem>
-          <MenuItem value="lunar_eclipse">Lunar Eclipse</MenuItem>
-        </Select>
+        <Typography variant="h3">Add sky event</Typography>
+        <FormControl required fullWidth>
+          <InputLabel htmlFor="eventType">event type</InputLabel>
+          <Select
+            fullWidth
+            name="event"
+            id="eventType"
+            label="event type"
+            defaultValue={value?.event || ""}>
+            <MenuItem value="comet">Comet</MenuItem>
+            <MenuItem value="asteroid">Asteroid</MenuItem>
+            <MenuItem value="meteor_shower">Meteor Shower</MenuItem>
+            <MenuItem value="solar_eclipse">Solar Eclipse</MenuItem>
+            <MenuItem value="lunar_eclipse">Lunar Eclipse</MenuItem>
+          </Select>
+        </FormControl>
         <TextField
           required
+          fullWidth
           name="name"
           label="event name"
           defaultValue={value?.name || ""}
         />
         <TextField
+          fullWidth
           name="date"
           type="date"
           label="event date"
@@ -60,14 +87,18 @@ const EventForm = ({ value, onSubmitForm }) => {
           InputLabelProps={{ shrink: true }}
         />
         <TextField
+          fullWidth
           name="description"
           multiline
-          rows={3}
+          rows={5}
           defaultValue={value?.description || ""}
           label="description"
         />
-        <Button type="submit">{value ? "Edit" : "Add"}</Button>
-      </form>
+
+        <Button fullWidth type="submit">
+          {value ? "Edit" : "Add"}
+        </Button>
+      </Box>
     </>
   );
 };

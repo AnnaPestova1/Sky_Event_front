@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Button, TextField, Paper } from "@mui/material";
+import { Box, Button, TextField, Paper } from "@mui/material";
 import { register } from "../../utils/fetchData";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../utils/MyContext";
@@ -25,19 +25,42 @@ const Register = () => {
       });
   };
   return (
-    <Paper>
-      <form
+    <>
+      <Box
+        component="form"
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        gap={1}
         onSubmit={e => {
           e.preventDefault();
           handleRegister(e);
           e.currentTarget.reset();
         }}>
-        <TextField required name="name" label="name" type="text" />
-        <TextField required name="email" label="email" type="email" />
-        <TextField required name="password" label="password" type="password" />
+        <TextField
+          required
+          name="name"
+          label="name"
+          type="text"
+          variant="standard"
+        />
+        <TextField
+          required
+          name="email"
+          label="email"
+          type="email"
+          variant="standard"
+        />
+        <TextField
+          required
+          name="password"
+          label="password"
+          type="password"
+          variant="standard"
+        />
         <Button type="submit">Login</Button>
-      </form>
-    </Paper>
+      </Box>
+    </>
   );
 };
 

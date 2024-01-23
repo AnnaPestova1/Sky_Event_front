@@ -61,6 +61,7 @@ const AllData = () => {
   return (
     <Box
       component="span"
+      p={2}
       sx={{
         display: "flex",
 
