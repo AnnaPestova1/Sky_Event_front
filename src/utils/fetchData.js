@@ -101,28 +101,24 @@ export const deleteData = dataId => {
 
 export const getCometsData = year => {
   const jwtToken = sessionStorage.getItem("jwtToken");
-  return axios.get(
-    `http://localhost:3000/api/v1/apiData/comets/${year.toString()}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${jwtToken}`
-      }
+  return axios.get(`http://localhost:3000/api/v1/apiData/comets/${year}`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${jwtToken}`
     }
-  );
+  });
 };
 
 export const getAsteroidsData = year => {
+  console.log(year);
   const jwtToken = sessionStorage.getItem("jwtToken");
-  return axios.get(
-    `http://localhost:3000/api/v1/apiData/asteroids/${year.toString()}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${jwtToken}`
-      }
+  console.log(jwtToken);
+  return axios.get(`http://localhost:3000/api/v1/apiData/asteroids/${year}`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${jwtToken}`
     }
-  );
+  });
 };
 
 export const getSolarEclipsesData = year => {

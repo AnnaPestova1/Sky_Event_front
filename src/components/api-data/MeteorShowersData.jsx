@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Alert, Snackbar } from "@mui/material";
 import { getMeteorShowersData } from "../../utils/fetchData";
-import SharedTable from "./SharedTable";
+import SharedAPIData from "./SharedAPIData";
 
 const MeteorShowersData = ({ year }) => {
   const [data, setData] = useState([]);
@@ -27,13 +27,14 @@ const MeteorShowersData = ({ year }) => {
         );
       });
   }, [year]);
-
+  set;
   const meteorShowerData = data.map(ms => {
     return {
       event: "meteor_shower",
       name: ms.meteorShowerName,
       date: ms.eventDate,
-      description: ms.description
+      description: ms.description,
+      image: ms.image
     };
   });
   const handleClose = (event, reason) => {
@@ -44,7 +45,7 @@ const MeteorShowersData = ({ year }) => {
   };
   return (
     <>
-      <SharedTable data={meteorShowerData} />
+      <SharedAPIData data={meteorShowerData} />
       <Snackbar
         open={openError}
         autoHideDuration={3000}
@@ -59,7 +60,7 @@ const MeteorShowersData = ({ year }) => {
 };
 
 MeteorShowersData.propTypes = {
-  year: PropTypes.number
+  year: PropTypes.number || PropTypes.string
 };
 
 export default MeteorShowersData;

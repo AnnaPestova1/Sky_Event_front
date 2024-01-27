@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Alert, Snackbar, TableCell, TableRow, Button } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Snackbar,
+  TableCell,
+  TableRow,
+  Button
+} from "@mui/material";
+import SharedCard from "../SharedCard";
 import { createData } from "../../utils/fetchData";
 
-const SharedRow = ({ data }) => {
+const SharedAPISingleData = ({ data }) => {
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -43,29 +51,7 @@ const SharedRow = ({ data }) => {
   };
   return (
     <>
-      <TableRow
-        key={data.id}
-        sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-        <TableCell component="th" scope="row" align="center">
-          {eventMap.map(event => {
-            if (event.value === data.event) {
-              return event.displayName;
-            }
-          })}
-        </TableCell>
-        <TableCell component="th" scope="row" align="center">
-          {data.name}
-        </TableCell>
-        <TableCell component="th" scope="row" align="center">
-          {date}
-        </TableCell>
-        <TableCell component="th" scope="row" align="center">
-          {data.description}
-        </TableCell>
-        <TableCell component="th" scope="row" align="center">
-          <Button onClick={handleSaveEvent}>Save</Button>
-        </TableCell>
-      </TableRow>
+      <SharedCard data={data} handleSaveEvent={handleSaveEvent} />
       <Snackbar
         open={open}
         autoHideDuration={3000}
@@ -88,8 +74,8 @@ const SharedRow = ({ data }) => {
   );
 };
 
-SharedRow.propTypes = {
+SharedAPISingleData.propTypes = {
   data: PropTypes.object
 };
 
-export default SharedRow;
+export default SharedAPISingleData;

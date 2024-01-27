@@ -3,14 +3,19 @@ import { createTheme } from "@mui/material/styles";
 export const theme = createTheme({
   typography: {
     fontFamily: ""
+    // fontSize: 20
   },
 
   palette: {
+    mode: "dark",
     primary: {
-      main: "#3a4c7a"
+      main: "#dee4f4"
     },
     secondary: {
-      main: "#9da5bd"
+      main: "#5c657d"
+    },
+    background: {
+      paper: "#2b3347"
     }
   },
   shape: {

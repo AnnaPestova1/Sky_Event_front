@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Alert, Snackbar } from "@mui/material";
 import { getLunarEclipsesData } from "../../utils/fetchData";
-import SharedTable from "./SharedTable";
+import SharedAPIData from "./SharedAPIData";
 
 const LunarEclipsesData = ({ year }) => {
   const [data, setData] = useState([]);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
+  const totalLunarEclipse =
+    "https://images-assets.nasa.gov/image/MAF_20211119_LunarEclipse01/MAF_20211119_LunarEclipse01~thumb.jpg";
+  const lunarEclipse =
+    "https://images-assets.nasa.gov/image/iss013e78721/iss013e78721~thumb.jpg";
   useEffect(() => {
     getLunarEclipsesData(year)
       .then(response => {
@@ -29,11 +32,17 @@ const LunarEclipsesData = ({ year }) => {
   }, [year]);
 
   const eclipseData = data.map(eclipse => {
+    if (eclipse.name.includes("Total")) {
+      eclipse.image = totalLunarEclipse;
+    } else {
+      eclipse.image = lunarEclipse;
+    }
     return {
       event: "lunar_eclipse",
       name: eclipse.name,
       date: eclipse.date,
-      description: eclipse.description
+      description: eclipse.description,
+      image: eclipse.image
     };
   });
   const handleClose = (event, reason) => {
@@ -44,7 +53,7 @@ const LunarEclipsesData = ({ year }) => {
   };
   return (
     <>
-      <SharedTable data={eclipseData} />
+      <SharedAPIData data={eclipseData} />
       <Snackbar
         open={openError}
         autoHideDuration={3000}
@@ -59,7 +68,7 @@ const LunarEclipsesData = ({ year }) => {
 };
 
 LunarEclipsesData.propTypes = {
-  year: PropTypes.number
+  year: PropTypes.number || PropTypes.string
 };
 
 export default LunarEclipsesData;

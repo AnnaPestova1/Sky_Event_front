@@ -14,6 +14,7 @@ import PrivateRoute from "./components/layout/PrivateRoute";
 import Footer from "./components/layout/footer";
 import { Box, Container, CssBaseline } from "@mui/material";
 import { getNASAPictureOfTheDay } from "./utils/fetchData";
+import { Height } from "@mui/icons-material";
 
 function App() {
   const { setIsRegistered } = useContext(AuthContext);
@@ -40,22 +41,30 @@ function App() {
       <CssBaseline />
       <Navbar />
       <Box
-        // display="flex"
-        // flexDirection="column"
+        display="flex"
+        flexDirection="column"
         // alignItems="center"
         // justifyContent="center"
         flexGrow={1}
         overflow="auto"
+        // height="100%"
         minHeight="calc(100vh - 64px)"
         sx={{
-          backgroundImage: `linear-gradient(to right, rgba(239, 238, 238, 0.85), rgba(255, 255, 255, 0.85)), url(${img})`,
+          backgroundImage: `linear-gradient(to bottom, rgba(0,0,0, 0.85), rgba(128, 128, 128, 0.85)), url(${img})`,
           width: "100%",
           backgroundSize: "100vw 100vh",
           backgroundPosition: "top",
           backgroundAttachment: "fixed",
           backgroundRepeat: "no-repeat"
         }}>
-        <Container maxWidth="lg" sx={{ flexGrow: 1 }}>
+        <Container
+          maxWidth="lg"
+          sx={{
+            flexGrow: 1,
+            minHeight: "calc(100%-40px)",
+            display: "flex",
+            justifyContent: "center"
+          }}>
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<Login />} />

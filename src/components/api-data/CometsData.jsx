@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Alert, Snackbar } from "@mui/material";
 import { getCometsData } from "../../utils/fetchData";
-import SharedTable from "./SharedTable";
+import SharedAPIData from "./SharedAPIData";
 
 const CometsData = ({ year }) => {
   const [data, setData] = useState([]);
@@ -28,7 +28,9 @@ const CometsData = ({ year }) => {
         );
       });
   }, [year]);
-
+  console.log(data);
+  const defaultImage =
+    "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001322/GSFC_20171208_Archive_e001322~thumb.jpg";
   const cometData = data.map(comet => {
     return {
       event: "comet",
@@ -44,9 +46,11 @@ const CometsData = ({ year }) => {
         2
       )} au. happens ${comet.cd}, ${
         comet.phys_par_title || "comet total magnitude"
-      } is ${comet.h || comet.phys_par_value}.`
+      } is ${comet.h || comet.phys_par_value}.`,
+      image: comet.image || defaultImage
     };
   });
+  console.log(cometData);
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -55,7 +59,7 @@ const CometsData = ({ year }) => {
   };
   return (
     <>
-      <SharedTable data={cometData} />
+      <SharedAPIData data={cometData} />
       <Snackbar
         open={openError}
         autoHideDuration={3000}
@@ -70,7 +74,7 @@ const CometsData = ({ year }) => {
 };
 
 CometsData.propTypes = {
-  year: PropTypes.number
+  year: PropTypes.number || PropTypes.string
 };
 
 export default CometsData;

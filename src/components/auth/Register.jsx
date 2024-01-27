@@ -31,6 +31,8 @@ const Register = () => {
         display="flex"
         flexDirection="column"
         justifyContent="center"
+        height="100%"
+        width="50%"
         gap={1}
         onSubmit={e => {
           e.preventDefault();

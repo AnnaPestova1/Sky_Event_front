@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Alert, Snackbar } from "@mui/material";
 import { getAsteroidsData } from "../../utils/fetchData";
-import SharedTable from "./SharedTable";
+import SharedAPIData from "./SharedAPIData";
 
 const AsteroidsData = ({ year }) => {
   const [data, setData] = useState([]);
@@ -28,7 +28,8 @@ const AsteroidsData = ({ year }) => {
         );
       });
   }, [year]);
-
+  const defaultImage =
+    "https://images-assets.nasa.gov/image/PIA23195/PIA23195~thumb.jpg";
   const asteroidData = data.map(a => {
     return {
       event: "asteroid",
@@ -41,12 +42,14 @@ const AsteroidsData = ({ year }) => {
       }, asteroid was last time observed ${
         a.last_obs
       }.  Minimal distance from Earth is ${Number(a.dist_min).toFixed(
-        4
+        6
       )} au. happens ${a.cd}, ${
         a.phys_par_title || "comet total magnitude"
-      } is ${a.h || a.phys_par_value}.`
+      } is ${a.h || a.phys_par_value}.`,
+      image: a.image || defaultImage
     };
   });
+  console.log(asteroidData);
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -55,7 +58,7 @@ const AsteroidsData = ({ year }) => {
   };
   return (
     <>
-      <SharedTable data={asteroidData} />
+      <SharedAPIData data={asteroidData} />
       <Snackbar
         open={openError}
         autoHideDuration={3000}
@@ -70,7 +73,7 @@ const AsteroidsData = ({ year }) => {
 };
 
 AsteroidsData.propTypes = {
-  year: PropTypes.number
+  year: PropTypes.number || PropTypes.string
 };
 
 export default AsteroidsData;

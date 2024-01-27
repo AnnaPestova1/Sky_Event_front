@@ -65,6 +65,12 @@ const MainPage = () => {
               </Select>
             </FormControl>
           </Box>
+          <Box display="flex" justifyContent="center">
+            <FormHelperText sx={{ maxWidth: 350 }}>
+              available data: for meteor showers 2024-2034; for lunar eclipses:
+              2023-2040
+            </FormHelperText>
+          </Box>
           {skyEvent === "comet" && <CometsData year={year} />}
           {skyEvent === "asteroid" && <AsteroidsData year={year} />}
           {skyEvent === "meteor_shower" && <MeteorShowersData year={year} />}

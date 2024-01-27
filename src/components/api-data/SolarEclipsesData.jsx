@@ -2,13 +2,18 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Alert, Snackbar } from "@mui/material";
 import { getSolarEclipsesData } from "../../utils/fetchData";
-import SharedTable from "./SharedTable";
+import SharedAPIData from "./SharedAPIData";
 
 const SolarEclipsesData = ({ year }) => {
   const [data, setData] = useState([]);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
+  const totalSolarEclipseImg =
+    "https://images-assets.nasa.gov/image/AFRC2017-0233-006/AFRC2017-0233-006~thumb.jpg";
+  const annularSolarEclopseImg =
+    "https://images-assets.nasa.gov/image/NHQ201708210100/NHQ201708210100~thumb.jpg";
+  const partialSolarEclipseImg =
+    "https://images-assets.nasa.gov/image/NHQ201708210302/NHQ201708210302~thumb.jpg";
   useEffect(() => {
     getSolarEclipsesData(year)
       .then(response => {
@@ -34,12 +39,19 @@ const SolarEclipsesData = ({ year }) => {
       .split(" ")
       .filter((_, i) => i < 3)
       .join(" ");
-
+    if (eclipseName.includes("Total")) {
+      eclipse.image = totalSolarEclipseImg;
+    } else if (eclipseName.includes("Annular")) {
+      eclipse.image = annularSolarEclopseImg;
+    } else {
+      eclipse.image = partialSolarEclipseImg;
+    }
     return {
       event: "solar_eclipse",
       name: eclipseName,
       date: date,
-      description: eclipse.event
+      description: eclipse.event,
+      image: eclipse.image
     };
   });
   const handleClose = (event, reason) => {
@@ -50,7 +62,7 @@ const SolarEclipsesData = ({ year }) => {
   };
   return (
     <>
-      <SharedTable data={eclipseData} />
+      <SharedAPIData data={eclipseData} />
       <Snackbar
         open={openError}
         autoHideDuration={3000}
@@ -65,7 +77,7 @@ const SolarEclipsesData = ({ year }) => {
 };
 
 SolarEclipsesData.propTypes = {
-  year: PropTypes.number
+  year: PropTypes.number || PropTypes.string
 };
 
 export default SolarEclipsesData;
