@@ -57,11 +57,12 @@ const EventForm = ({ value, onSubmitForm }) => {
         }}>
         <Typography variant="h3">Add sky event</Typography>
         <FormControl required fullWidth>
-          <InputLabel htmlFor="eventType">event type</InputLabel>
+          <InputLabel id="eventType">event type</InputLabel>
           <Select
             fullWidth
             name="event"
-            id="eventType"
+            labelId="eventType"
+            id="events"
             label="event type"
             defaultValue={value?.event || ""}>
             <MenuItem value="comet">Comet</MenuItem>
