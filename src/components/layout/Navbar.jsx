@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../utils/MyContext";
 import { logout } from "../../utils/fetchData";
 import {
@@ -30,6 +30,7 @@ const Navbar = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
   const drawerWidth = 240;
 
   const handleLogout = () => {
@@ -45,8 +46,7 @@ const Navbar = () => {
         console.log(error);
         setOpenError(true);
         setErrorMessage(
-          error?.response?.data?.msg ||
-            error?.response?.data?.message ||
+          error?.response?.data?.message ||
             error?.response?.data?.error ||
             error?.response?.data ||
             error.message ||
@@ -61,10 +61,24 @@ const Navbar = () => {
     setOpenError(false);
   };
   const navItems = [
-    { displayName: "My Events", url: "/data", visible: isRegistered },
-    { displayName: "Add Event", url: "/data/add", visible: isRegistered }
-  ];
-  const loginItems = [
+    {
+      displayName: "Home",
+      onClick: () => navigate("/"),
+      visible: true,
+      active: location.pathname === "/"
+    },
+    {
+      displayName: "My Events",
+      onClick: () => navigate("/data"),
+      visible: isRegistered,
+      active: location.pathname === "/data"
+    },
+    {
+      displayName: "Add Event",
+      onClick: () => navigate("/data/add"),
+      visible: isRegistered,
+      active: location.pathname === "/data/add"
+    },
     {
       displayName: "Sign Out",
       onClick: () => handleLogout(),
@@ -73,14 +87,19 @@ const Navbar = () => {
     {
       displayName: "Register",
       onClick: () => navigate("/register"),
-      visible: !isRegistered
+      visible: !isRegistered,
+      active: location.pathname === "/register"
     },
     {
       displayName: "Login",
       onClick: () => navigate("/login"),
-      visible: !isRegistered
+      visible: !isRegistered,
+      active: location.pathname === "/login"
     }
   ];
+  // const loginItems = [
+
+  // ];
 
   const handleDrawerToggle = () => {
     setMobileOpen(prevState => !prevState);
@@ -96,18 +115,18 @@ const Navbar = () => {
         {navItems.map(item => {
           return (
             item.visible && (
-              <ListItem key={item.displayName} disablePadding>
-                <ListItemButton
-                  sx={{ textAlign: "center" }}
-                  onClick={() => navigate(item.url)}>
-                  <ListItemText primary={item.displayName} />
-                </ListItemButton>
-              </ListItem>
+              <ListItemButton
+                key={item.displayName}
+                sx={{ textAlign: "center" }}
+                onClick={item.onClick}
+                selected={item.active}>
+                <ListItemText primary={item.displayName} />
+              </ListItemButton>
             )
           );
         })}
       </List>
-      <List>
+      {/* <List>
         {loginItems.map(item => {
           return (
             item.visible && (
@@ -121,7 +140,7 @@ const Navbar = () => {
             )
           );
         })}
-      </List>
+      </List> */}
     </Box>
   );
   console.log("isRegistered navbar", isRegistered);
@@ -151,14 +170,14 @@ const Navbar = () => {
             onClick={() => navigate("/")}>
             SKY EVENTS
           </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+          <Box sx={{ display: { xs: "none", sm: "flex" }, gap: 1 }}>
             {navItems.map(item => {
               return (
                 item.visible && (
                   <Button
                     key={item.displayName}
-                    sx={{ color: "#fff" }}
-                    onClick={() => navigate(item.url)}>
+                    onClick={item.onClick}
+                    variant={item.active ? "contained" : "text"}>
                     {item.displayName}
                   </Button>
                 )
@@ -166,7 +185,7 @@ const Navbar = () => {
             })}
           </Box>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {loginItems.map(item => {
+            {/* {loginItems.map(item => {
               return (
                 item.visible && (
                   <Button
@@ -177,7 +196,7 @@ const Navbar = () => {
                   </Button>
                 )
               );
-            })}
+            })} */}
           </Box>
         </Toolbar>
       </AppBar>

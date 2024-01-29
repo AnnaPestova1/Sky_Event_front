@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import SharedCard from "../SharedCard";
 const SingleData = ({ data, handleDelete }) => {
   const navigate = useNavigate();
-  console.log(data);
+  // console.log(data);
   const eventMap = [
     { value: "comet", image: "/comet.jpg" },
     { value: "asteroid", image: "/asteroid.jpg" },

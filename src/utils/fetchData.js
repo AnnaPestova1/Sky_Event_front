@@ -1,12 +1,13 @@
 import axios from "axios";
 
-export const register = (name, email, password) => {
+export const register = (name, email, password, confirmPassword) => {
   return axios.post(
     "http://localhost:3000/api/v1/auth/register",
     {
       name: name,
       email: email,
-      password: password
+      password: password,
+      confirmPassword: confirmPassword
     },
     {
       headers: {
@@ -35,14 +36,18 @@ export const logout = () => {
   return axios.post("http://localhost:3000/api/v1/auth/logout");
 };
 
-export const getAllData = () => {
+export const getAllData = (page, filtering) => {
+  console.log(page);
   const jwtToken = sessionStorage.getItem("jwtToken");
-  return axios.get("http://localhost:3000/api/v1/data", {
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${jwtToken}`
+  return axios.get(
+    `http://localhost:3000/api/v1/data?page=${page}&filtering=${filtering}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${jwtToken}`
+      }
     }
-  });
+  );
 };
 
 export const getSingleData = dataId => {

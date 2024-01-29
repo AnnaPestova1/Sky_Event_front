@@ -2,13 +2,15 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
+  CircularProgress,
   InputLabel,
   FormControl,
   FormHelperText,
   MenuItem,
   Select,
   TextField,
-  Box
+  Box,
+  Typography
 } from "@mui/material";
 import { AuthContext } from "../../utils/MyContext";
 import CometsData from "../api-data/CometsData";
@@ -20,19 +22,22 @@ import MeteorShowersData from "../api-data/MeteorShowersData";
 const MainPage = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [skyEvent, setSkyEvent] = useState("");
+  const [loading, setLoading] = useState(true);
   const { isRegistered } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleChangeYear = event => {
     setYear(event.target.value);
+    setLoading(true);
   };
   const handleChangeSkyEvent = event => {
     setSkyEvent(event.target.value);
+    setLoading(true);
   };
   return (
     <Box>
-      <Box display="flex" justifyContent="center">
-        <h1>Sky Events</h1>
+      <Box display="flex" justifyContent="center" mb={5}>
+        <Typography variant="h3">Sky Events</Typography>
       </Box>
       {isRegistered ? (
         <>
@@ -71,11 +76,49 @@ const MainPage = () => {
               2023-2040
             </FormHelperText>
           </Box>
-          {skyEvent === "comet" && <CometsData year={year} />}
-          {skyEvent === "asteroid" && <AsteroidsData year={year} />}
-          {skyEvent === "meteor_shower" && <MeteorShowersData year={year} />}
-          {skyEvent === "solar_eclipse" && <SolarEclipsesData year={year} />}
-          {skyEvent === "lunar_eclipse" && <LunarEclipsesData year={year} />}
+          <Box display="flex" justifyContent="center">
+            {skyEvent && loading && <CircularProgress />}
+          </Box>
+          {skyEvent === "comet" && (
+            <CometsData
+              year={year}
+              onLoad={() => {
+                setLoading(false);
+              }}
+            />
+          )}
+          {skyEvent === "asteroid" && (
+            <AsteroidsData
+              year={year}
+              onLoad={() => {
+                setLoading(false);
+              }}
+            />
+          )}
+          {skyEvent === "meteor_shower" && (
+            <MeteorShowersData
+              year={year}
+              onLoad={() => {
+                setLoading(false);
+              }}
+            />
+          )}
+          {skyEvent === "solar_eclipse" && (
+            <SolarEclipsesData
+              year={year}
+              onLoad={() => {
+                setLoading(false);
+              }}
+            />
+          )}
+          {skyEvent === "lunar_eclipse" && (
+            <LunarEclipsesData
+              year={year}
+              onLoad={() => {
+                setLoading(false);
+              }}
+            />
+          )}
         </>
       ) : (
         <Box gap={1} display="flex" justifyContent="center">

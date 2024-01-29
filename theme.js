@@ -2,7 +2,25 @@ import { createTheme } from "@mui/material/styles";
 
 export const theme = createTheme({
   typography: {
-    fontFamily: ""
+    fontFamily: "",
+    h1: {
+      fontFamily: "Sixtyfour"
+    },
+    h2: {
+      fontFamily: "Sixtyfour"
+    },
+    h3: {
+      fontFamily: "Sixtyfour"
+    },
+    h4: {
+      fontFamily: "Sixtyfour"
+    },
+    h5: {
+      fontFamily: "Sixtyfour"
+    },
+    h6: {
+      fontFamily: "Sixtyfour"
+    }
     // fontSize: 20
   },
 

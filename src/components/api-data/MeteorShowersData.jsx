@@ -4,7 +4,7 @@ import { Alert, Snackbar } from "@mui/material";
 import { getMeteorShowersData } from "../../utils/fetchData";
 import SharedAPIData from "./SharedAPIData";
 
-const MeteorShowersData = ({ year }) => {
+const MeteorShowersData = ({ year, onLoad }) => {
   const [data, setData] = useState([]);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -13,13 +13,13 @@ const MeteorShowersData = ({ year }) => {
     getMeteorShowersData(year)
       .then(response => {
         setData(response.data.showersByYear);
+        onLoad();
       })
       .catch(error => {
         console.log(error);
         setOpenError(true);
         setErrorMessage(
-          error?.response?.data?.msg ||
-            error?.response?.data?.message ||
+          error?.response?.data?.message ||
             error?.response?.data?.error ||
             error?.response?.data ||
             error.message ||
@@ -27,7 +27,6 @@ const MeteorShowersData = ({ year }) => {
         );
       });
   }, [year]);
-  set;
   const meteorShowerData = data.map(ms => {
     return {
       event: "meteor_shower",
@@ -60,7 +59,8 @@ const MeteorShowersData = ({ year }) => {
 };
 
 MeteorShowersData.propTypes = {
-  year: PropTypes.number || PropTypes.string
+  year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onLoad: PropTypes.func
 };
 
 export default MeteorShowersData;

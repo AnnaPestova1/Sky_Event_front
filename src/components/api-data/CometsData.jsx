@@ -4,7 +4,7 @@ import { Alert, Snackbar } from "@mui/material";
 import { getCometsData } from "../../utils/fetchData";
 import SharedAPIData from "./SharedAPIData";
 
-const CometsData = ({ year }) => {
+const CometsData = ({ year, onLoad }) => {
   const [data, setData] = useState([]);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -14,13 +14,13 @@ const CometsData = ({ year }) => {
       .then(response => {
         console.log(response.data.cometsData);
         setData(response.data.cometsData);
+        onLoad();
       })
       .catch(error => {
         console.log(error);
         setOpenError(true);
         setErrorMessage(
-          error?.response?.data?.msg ||
-            error?.response?.data?.message ||
+          error?.response?.data?.message ||
             error?.response?.data?.error ||
             error?.response?.data ||
             error.message ||
@@ -74,7 +74,8 @@ const CometsData = ({ year }) => {
 };
 
 CometsData.propTypes = {
-  year: PropTypes.number || PropTypes.string
+  year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onLoad: PropTypes.func
 };
 
 export default CometsData;

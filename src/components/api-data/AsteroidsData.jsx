@@ -4,7 +4,7 @@ import { Alert, Snackbar } from "@mui/material";
 import { getAsteroidsData } from "../../utils/fetchData";
 import SharedAPIData from "./SharedAPIData";
 
-const AsteroidsData = ({ year }) => {
+const AsteroidsData = ({ year, onLoad }) => {
   const [data, setData] = useState([]);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -14,13 +14,13 @@ const AsteroidsData = ({ year }) => {
       .then(response => {
         console.log(response.data.asteroidsData);
         setData(response.data.asteroidsData);
+        onLoad();
       })
       .catch(error => {
         console.log(error);
         setOpenError(true);
         setErrorMessage(
-          error?.response?.data?.msg ||
-            error?.response?.data?.message ||
+          error?.response?.data?.message ||
             error?.response?.data?.error ||
             error?.response?.data ||
             error.message ||
@@ -73,7 +73,8 @@ const AsteroidsData = ({ year }) => {
 };
 
 AsteroidsData.propTypes = {
-  year: PropTypes.number || PropTypes.string
+  year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onLoad: PropTypes.func
 };
 
 export default AsteroidsData;

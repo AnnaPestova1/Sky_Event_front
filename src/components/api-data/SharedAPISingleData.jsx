@@ -15,6 +15,7 @@ const SharedAPISingleData = ({ data }) => {
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [saved, setSaved] = useState(false);
   const eventMap = [
     { value: "comet", displayName: "Comet" },
     { value: "asteroid", displayName: "Asteroid" },
@@ -27,13 +28,13 @@ const SharedAPISingleData = ({ data }) => {
     createData(data)
       .then(() => {
         setOpen(true);
+        setSaved(true);
       })
       .catch(error => {
         console.log(error);
         setOpenError(true);
         setErrorMessage(
-          error?.response?.data?.msg ||
-            error?.response?.data?.message ||
+          error?.response?.data?.message ||
             error?.response?.data?.error ||
             error?.response?.data ||
             error.message ||
@@ -51,7 +52,7 @@ const SharedAPISingleData = ({ data }) => {
   };
   return (
     <>
-      <SharedCard data={data} handleSaveEvent={handleSaveEvent} />
+      <SharedCard data={data} handleSave={handleSaveEvent} saved={saved} />
       <Snackbar
         open={open}
         autoHideDuration={3000}
