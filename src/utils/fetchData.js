@@ -166,11 +166,9 @@ export const getMeteorShowersData = year => {
 };
 
 export const getNASAPictureOfTheDay = () => {
-  const jwtToken = sessionStorage.getItem("jwtToken");
-  return axios.get(`http://localhost:3000/api/v1/apiData/NASAPictureOfTheDay`, {
+  return axios.get(`http://localhost:3000/api/v1/apiImg/NASAPictureOfTheDay`, {
     headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${jwtToken}`
+      "Content-Type": "application/json"
     }
   });
 };
