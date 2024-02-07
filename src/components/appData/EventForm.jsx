@@ -30,12 +30,13 @@ const EventForm = ({ value, onSubmitForm }) => {
   }
 
   const handleSubmit = e => {
-    const { event, name, date, description } = e.target.elements;
+    const { event, name, date, description, image } = e.target.elements;
     onSubmitForm({
       event: event.value,
       name: name.value,
       date: date.value,
-      description: description.value
+      description: description.value,
+      image: image.value
     });
   };
   return (
@@ -95,7 +96,12 @@ const EventForm = ({ value, onSubmitForm }) => {
           defaultValue={value?.description || ""}
           label="description"
         />
-
+        <TextField
+          fullWidth
+          name="image"
+          label="image"
+          defaultValue={value?.image || ""}
+        />
         <Button fullWidth type="submit">
           {value ? "Edit" : "Add"}
         </Button>

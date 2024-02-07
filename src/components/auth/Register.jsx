@@ -33,7 +33,9 @@ const Register = () => {
     const { name, email, password, confirmPassword } = e.target.elements;
     register(name.value, email.value, password.value, confirmPassword.value)
       .then(result => {
-        if (result.status === 200) {
+        console.log(result);
+        if (result.status === 201) {
+          console.log(result);
           console.log(result.data.user);
           sessionStorage.setItem("jwtToken", result.data.token);
           sessionStorage.setItem("username", result.data.user.name);
@@ -42,6 +44,7 @@ const Register = () => {
         }
       })
       .catch(error => {
+        console.log(error);
         setOpenError(true);
         // console.log(error.response.data?.message);
         setErrorMessage(error.response.data?.message);
@@ -62,7 +65,7 @@ const Register = () => {
     }
     setOpenError(false);
   };
-  console.log("errorMessage", errorMessage);
+
   return (
     <>
       {/* {showForm && ( */}

@@ -32,6 +32,7 @@ const Login = () => {
     const { email, password } = e.target.elements;
     login(email.value, password.value)
       .then(result => {
+        console.log(result);
         if (result.status === 200) {
           sessionStorage.setItem("jwtToken", result.data.token);
           sessionStorage.setItem("username", result.data.user.name);
