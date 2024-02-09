@@ -31,20 +31,14 @@ const EditData = () => {
       });
   }, []);
   const onSubmitForm = eventObject => {
-    console.log(
-      "eventObject",
-      eventObject._id,
-      eventObject.event,
-      eventObject.name,
-      eventObject.date,
-      eventObject.description
-    );
     editData({
       _id: data._id,
-      event: eventObject.event,
-      name: eventObject.name,
-      date: eventObject.date,
-      description: eventObject.description
+      ...eventObject
+      // event: eventObject.event,
+      // name: eventObject.name,
+      // date: eventObject.date,
+      // description: eventObject.description,
+      // eventImage: eventObject.eventImage
     })
       .then(() => {
         navigate("/data");

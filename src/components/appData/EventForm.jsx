@@ -8,8 +8,14 @@ import {
   TextField,
   MenuItem,
   Select,
-  Typography
+  Typography,
+  Input,
+  Paper,
+  Avatar,
+  OutlinedInput
 } from "@mui/material";
+import { getBase64 } from "../../utils/helperFunc";
+import { Image } from "@mui/icons-material";
 
 const EventForm = ({ value, onSubmitForm }) => {
   let dateValue = "";
@@ -29,14 +35,41 @@ const EventForm = ({ value, onSubmitForm }) => {
     dateValue = `${year}-${month}-${day}`;
   }
 
-  const handleSubmit = e => {
-    const { event, name, date, description, image } = e.target.elements;
+  const handleSubmit = async e => {
+    console.log(e);
+    let base64 = value?.eventImage || "";
+    const { event, name, date, description, eventImage } = e.target.elements;
+    const imageFile = eventImage.files[0];
+
+    // function getBase64(file) {
+    //   return new Promise((resolve, reject) => {
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload = () => resolve(reader.result);
+    //     reader.onerror = error => reject(error);
+    //   });
+    // }
+    console.log(imageFile);
+    if (imageFile) {
+      // function getBase64(file) {
+      //   return new Promise((resolve, reject) => {
+      //     const reader = new FileReader();
+      //     reader.readAsDataURL(file);
+      //     reader.onload = () => resolve(reader.result);
+      //     reader.onerror = error => reject(error);
+      //   });
+      // }
+
+      // var file = document.querySelector('#files > input[type="file"]').files[0];
+      base64 = await getBase64(imageFile);
+      console.log(base64);
+    }
     onSubmitForm({
       event: event.value,
       name: name.value,
       date: date.value,
       description: description.value,
-      image: image.value
+      eventImage: base64
     });
   };
   return (
@@ -56,7 +89,9 @@ const EventForm = ({ value, onSubmitForm }) => {
           e.preventDefault();
           handleSubmit(e);
         }}>
-        <Typography variant="h3">Add sky event</Typography>
+        <Typography textAlign="center" variant="h3">
+          {value ? "Edit" : "Add"} sky event
+        </Typography>
         <FormControl required fullWidth>
           <InputLabel id="eventType">event type</InputLabel>
           <Select
@@ -96,14 +131,26 @@ const EventForm = ({ value, onSubmitForm }) => {
           defaultValue={value?.description || ""}
           label="description"
         />
-        <TextField
+        <Box display="flex" gap={2} width="100%" alignItems="center">
+          <Avatar src={value?.eventImage || value?.image} variant="rounded">
+            <Image />
+          </Avatar>
+          <OutlinedInput
+            fullWidth
+            variant="outlined"
+            type="file"
+            name="eventImage"
+            accept="image/png, image/jpeg, image/jpg"
+          />
+        </Box>
+        {/* <TextField
           fullWidth
           name="image"
           label="image"
           defaultValue={value?.image || ""}
-        />
+        /> */}
         <Button fullWidth type="submit">
-          {value ? "Edit" : "Add"}
+          Save
         </Button>
       </Box>
     </>

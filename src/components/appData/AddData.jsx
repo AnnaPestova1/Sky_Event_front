@@ -9,12 +9,7 @@ const AddData = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const onSubmitForm = eventObject => {
-    createData({
-      event: eventObject.event,
-      name: eventObject.name,
-      date: eventObject.date,
-      description: eventObject.description
-    })
+    createData(eventObject)
       .then(() => {
         navigate("/data");
       })

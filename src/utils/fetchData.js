@@ -80,18 +80,12 @@ export const createData = data => {
 export const editData = data => {
   console.log("fetch patch data", data);
   const jwtToken = sessionStorage.getItem("jwtToken");
-  return axios.patch(
-    `http://localhost:3000/api/v1/data/${data._id}`,
-    {
-      ...data
-    },
-    {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${jwtToken}`
-      }
+  return axios.patch(`http://localhost:3000/api/v1/data/${data._id}`, data, {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${jwtToken}`
     }
-  );
+  });
 };
 
 export const deleteData = dataId => {

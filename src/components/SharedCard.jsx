@@ -72,7 +72,14 @@ const SharedCard = ({ data, handleDelete, handleEdit, handleSave, saved }) => {
   const handleCloseConfirmation = () => {
     setOpenConfirmation(false);
   };
-
+  // function convertBufferToBase64(buffer) {
+  //   let binaryStr = "";
+  //   const byteArray = new Uint8Array(buffer);
+  //   for (let i = 0; i < byteArray.length; i++) {
+  //     binaryStr += String.fromCharCode(byteArray[i]);
+  //   }
+  //   return btoa(binaryStr);
+  // }
   if (data.date) {
     if (!handleSave) {
       eventDate = new Date(data.date).toLocaleDateString(undefined, {
@@ -150,10 +157,11 @@ const SharedCard = ({ data, handleDelete, handleEdit, handleSave, saved }) => {
               <Button startIcon={<Delete />}>Delete</Button>
             </MenuItem>
           </Menu>
+
           <CardMedia
             component="img"
             height="200"
-            image={data.image}
+            image={data.eventImage || data.image}
             alt={eventDetails.value}
           />
 
