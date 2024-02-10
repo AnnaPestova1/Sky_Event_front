@@ -22,6 +22,15 @@ function App() {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+    const userName = urlParams.get("name");
+    if (token) {
+      sessionStorage.setItem("jwtToken", token);
+      sessionStorage.setItem("username", userName);
+      setIsRegistered(true);
+      window.location = "/";
+    }
     if (sessionStorage.jwtToken) {
       setIsRegistered(true);
     }

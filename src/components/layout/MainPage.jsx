@@ -13,6 +13,7 @@ import {
   Typography
 } from "@mui/material";
 import { AuthContext } from "../../utils/MyContext";
+import { getGoogleOAuthURL } from "../../utils/fetchData";
 import CometsData from "../api-data/CometsData";
 import AsteroidsData from "../api-data/AsteroidsData";
 import SolarEclipsesData from "../api-data/SolarEclipsesData";
@@ -121,14 +122,21 @@ const MainPage = () => {
           )}
         </>
       ) : (
-        <Box gap={1} display="flex" justifyContent="center">
-          <Button variant="outlined" onClick={() => navigate("/register")}>
-            Register
-          </Button>
-          <Button variant="contained" onClick={() => navigate("/login")}>
-            Login
-          </Button>
-        </Box>
+        <>
+          <Box gap={1} display="flex" justifyContent="center">
+            <Button variant="outlined" onClick={() => navigate("/register")}>
+              Register
+            </Button>
+            <Button variant="contained" onClick={() => navigate("/login")}>
+              Login
+            </Button>
+          </Box>
+          <Box display="flex" justifyContent="center" m="10px">
+            <Button variant="outlined" href={getGoogleOAuthURL()}>
+              Login with Google
+            </Button>
+          </Box>
+        </>
       )}
     </Box>
   );

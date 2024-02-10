@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import {
   Alert,
   Box,
+  Button,
   FormControl,
   Grid,
   InputLabel,
@@ -27,6 +29,7 @@ const AllData = () => {
   const [totalPage, setTotalPage] = useState(1);
   const [filtering, setFiltering] = useState("");
   const pageTopRef = useRef(null);
+  const navigate = useNavigate();
 
   console.log("AllData isRegistered", isRegistered);
   useEffect(() => {
@@ -119,39 +122,62 @@ const AllData = () => {
           flexGrow={1}>
           My Sky Events
         </Typography>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="choose_filtering">Filter by</InputLabel>
-          <Select
-            labelId="choose_filtering"
-            id="filtering"
-            value={filtering}
-            onChange={handleFilteringChange}
-            label="Filter by">
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value="comet">comets</MenuItem>
-            <MenuItem value="asteroid">asteroids</MenuItem>
-            <MenuItem value="meteor_shower">meteor showers</MenuItem>
-            <MenuItem value="solar_eclipse">solar eclipses</MenuItem>
-            <MenuItem value="lunar_eclipse">lunar eclipses</MenuItem>
-          </Select>
-        </FormControl>
+        {allData.length > 0 && (
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="choose_filtering">Filter by</InputLabel>
+            <Select
+              labelId="choose_filtering"
+              id="filtering"
+              value={filtering}
+              onChange={handleFilteringChange}
+              label="Filter by">
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value="comet">comets</MenuItem>
+              <MenuItem value="asteroid">asteroids</MenuItem>
+              <MenuItem value="meteor_shower">meteor showers</MenuItem>
+              <MenuItem value="solar_eclipse">solar eclipses</MenuItem>
+              <MenuItem value="lunar_eclipse">lunar eclipses</MenuItem>
+            </Select>
+          </FormControl>
+        )}
       </Box>
-      <Grid container spacing={2}>
-        {allData.map(data => (
-          <SingleData
-            data={data}
-            key={data._id}
-            handleDelete={() => handleDelete(data._id)}
-          />
-        ))}
-      </Grid>
-      <Box display="flex" justifyContent="center" spacing={2}>
-        <Stack>
-          <Pagination count={totalPage} page={page} onChange={handleChange} />
-        </Stack>
-      </Box>
+      {allData.length === 0 && (
+        <>
+          <Typography variant="subtitle1" component="div" gutterBottom>
+            Seems you do not have any sky events yet
+          </Typography>
+          <Button
+            key="Add Event"
+            variant="outlined"
+            onClick={() => navigate("/data/add")}>
+            Add Event
+          </Button>
+        </>
+      )}
+      {allData.length > 0 && (
+        <>
+          <Grid container spacing={2}>
+            {allData.map(data => (
+              <SingleData
+                data={data}
+                key={data._id}
+                handleDelete={() => handleDelete(data._id)}
+              />
+            ))}
+          </Grid>
+          <Box display="flex" justifyContent="center" spacing={2}>
+            <Stack>
+              <Pagination
+                count={totalPage}
+                page={page}
+                onChange={handleChange}
+              />
+            </Stack>
+          </Box>
+        </>
+      )}
       <Snackbar
         open={openError}
         autoHideDuration={3000}

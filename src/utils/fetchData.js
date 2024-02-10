@@ -166,3 +166,31 @@ export const getNASAPictureOfTheDay = () => {
     }
   });
 };
+
+export const getGoogleOAuthURL = () => {
+  // console.log(import.meta.env.VITE_CLIENT_ID);
+  const rootURL = "https://accounts.google.com/o/oauth2/v2/auth";
+
+  const options = {
+    redirect_uri: import.meta.env.VITE_REDIRECT_URL,
+    client_id: import.meta.env.VITE_CLIENT_ID,
+    access_type: "offline",
+    response_type: "code",
+    prompt: "consent",
+    scope: [
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/userinfo.email"
+    ].join(" ")
+  };
+  console.log({ options });
+  const qs = new URLSearchParams(options);
+  console.log(qs.toString());
+  const url = `${rootURL}?${qs.toString()}`;
+  return url;
+  // return axios.get(`${rootURL}?${qs.toString()}`);
+  // return axios.get(`https://accounts.google.com/o/oauth2/v2/auth`, {
+  //   headers: {
+  //     "Content-Type": "application/json"
+  //   }
+  // });
+};
