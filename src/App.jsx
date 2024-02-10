@@ -38,7 +38,6 @@ function App() {
   useEffect(() => {
     getNASAPictureOfTheDay()
       .then(response => {
-        console.log(response.data.data);
         setImg(response.data.data.hdurl);
       })
       .catch(error => {

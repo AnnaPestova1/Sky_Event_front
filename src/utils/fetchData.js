@@ -37,7 +37,6 @@ export const logout = () => {
 };
 
 export const getAllData = (page, filtering) => {
-  console.log(page);
   const jwtToken = sessionStorage.getItem("jwtToken");
   return axios.get(
     `${
@@ -63,7 +62,6 @@ export const getSingleData = dataId => {
 };
 
 export const createData = data => {
-  console.log("fetch create data", data);
   const jwtToken = sessionStorage.getItem("jwtToken");
   return axios.post(
     `${import.meta.env.VITE_SERVER_URL}/api/v1/data`,
@@ -80,7 +78,6 @@ export const createData = data => {
 };
 
 export const editData = data => {
-  console.log("fetch patch data", data);
   const jwtToken = sessionStorage.getItem("jwtToken");
   return axios.patch(
     `${import.meta.env.VITE_SERVER_URL}/api/v1/data/${data._id}`,
@@ -121,9 +118,7 @@ export const getCometsData = year => {
 };
 
 export const getAsteroidsData = year => {
-  console.log(year);
   const jwtToken = sessionStorage.getItem("jwtToken");
-  console.log(jwtToken);
   return axios.get(
     `${import.meta.env.VITE_SERVER_URL}/api/v1/apiData/asteroids/${year}`,
     {
