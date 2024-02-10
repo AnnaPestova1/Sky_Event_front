@@ -67,11 +67,8 @@ function App() {
         <Box
           display="flex"
           flexDirection="column"
-          // alignItems="center"
-          // justifyContent="center"
           flexGrow={1}
           overflow="auto"
-          // height="100%"
           minHeight="calc(100vh - 64px)"
           sx={{
             backgroundImage: `linear-gradient(to bottom, rgba(0,0,0, 0.85), rgba(128, 128, 128, 0.85)), url(${img})`,

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { Alert, Snackbar } from "@mui/material";
 import EventForm from "./EventForm";
 import { useParams, useNavigate } from "react-router-dom";
@@ -34,11 +33,6 @@ const EditData = () => {
     editData({
       _id: data._id,
       ...eventObject
-      // event: eventObject.event,
-      // name: eventObject.name,
-      // date: eventObject.date,
-      // description: eventObject.description,
-      // eventImage: eventObject.eventImage
     })
       .then(() => {
         navigate("/data");

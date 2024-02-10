@@ -3,17 +3,11 @@ import {
   Alert,
   Box,
   Button,
-  FormHelperText,
   IconButton,
   InputAdornment,
   TextField,
-  OutlinedInput,
-  Paper,
   Snackbar,
-  Typography,
-  FormControl,
-  Input,
-  InputLabel
+  Typography
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { register } from "../../utils/fetchData";
@@ -26,17 +20,11 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const { setIsRegistered } = useContext(AuthContext);
-
-  // const [showForm, setShowForm] = useState(true);
-
   const handleRegister = e => {
     const { name, email, password, confirmPassword } = e.target.elements;
     register(name.value, email.value, password.value, confirmPassword.value)
       .then(result => {
-        console.log(result);
         if (result.status === 201) {
-          console.log(result);
-          console.log(result.data.user);
           sessionStorage.setItem("jwtToken", result.data.token);
           sessionStorage.setItem("username", result.data.user.name);
           setIsRegistered(true);
@@ -46,12 +34,7 @@ const Register = () => {
       .catch(error => {
         console.error(error);
         setOpenError(true);
-        // console.log(error.response.data?.message);
         setErrorMessage(error.response.data?.message);
-        // setShowForm(false);
-        // setTimeout(() => {
-        //   setShowForm(true);
-        // }, 100);
       });
   };
   const handleClickShowPassword = () => setShowPassword(show => !show);
@@ -68,7 +51,6 @@ const Register = () => {
 
   return (
     <>
-      {/* {showForm && ( */}
       <Box
         component="form"
         display="flex"
@@ -81,7 +63,6 @@ const Register = () => {
         onSubmit={e => {
           e.preventDefault();
           handleRegister(e);
-          console.log(e.currentTarget);
           e.currentTarget.reset();
         }}>
         <Typography variant="h3" mb="50px">

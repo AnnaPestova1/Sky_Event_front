@@ -1,27 +1,19 @@
 import React, { useContext, useState } from "react";
-import PropTypes from "prop-types";
-
 import {
   Alert,
   Box,
   Button,
-  FormHelperText,
   IconButton,
   InputAdornment,
   TextField,
-  OutlinedInput,
-  Paper,
   Snackbar,
-  Typography,
-  FormControl,
-  Input,
-  InputLabel
+  Typography
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-
 import { login } from "../../utils/fetchData";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../utils/MyContext";
+
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [openError, setOpenError] = useState(false);
@@ -29,11 +21,9 @@ const Login = () => {
   const navigate = useNavigate();
   const { setIsRegistered } = useContext(AuthContext);
   const handleLogin = e => {
-    console.log(e.target.elements);
     const { email, password } = e.target.elements;
     login(email.value, password.value)
       .then(result => {
-        console.log(result);
         if (result.status === 200) {
           sessionStorage.setItem("jwtToken", result.data.token);
           sessionStorage.setItem("username", result.data.user.name);

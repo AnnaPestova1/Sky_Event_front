@@ -12,7 +12,6 @@ const AsteroidsData = ({ year, onLoad }) => {
   useEffect(() => {
     getAsteroidsData(year)
       .then(response => {
-        console.log(response.data.asteroidsData);
         setData(response.data.asteroidsData);
         onLoad();
       })
@@ -49,7 +48,6 @@ const AsteroidsData = ({ year, onLoad }) => {
       image: a.image || defaultImage
     };
   });
-  console.log(asteroidData);
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;

@@ -9,64 +9,35 @@ import {
   MenuItem,
   Select,
   Typography,
-  Input,
-  Paper,
   Avatar,
   OutlinedInput
 } from "@mui/material";
-import { getBase64 } from "../../utils/helperFunc";
 import { Image } from "@mui/icons-material";
 
 const EventForm = ({ value, onSubmitForm }) => {
   let dateValue = "";
-  console.log("data from form", value);
   if (value && value.date !== null) {
-    console.log(new Date(value.date).getUTCDate());
     let day = new Date(value.date).getUTCDate();
     let month = new Date(value.date).getUTCMonth();
     let year = new Date(value.date).getUTCFullYear();
-
     if (day < 10) {
       day = day.toString().padStart(2, "0");
     }
-    if (month < 10) {
+    if (month < 10 && month !== 0) {
       month = month.toString().padStart(2, "0");
+    }
+    if (month === 0) {
+      month = "01";
     }
     dateValue = `${year}-${month}-${day}`;
   }
 
   const handleSubmit = async e => {
-    console.log(e);
-    // let base64 = value?.eventImage || "";
     let newImage = value?.eventImage || "";
     const { event, name, date, description, eventImage } = e.target.elements;
     const imageFile = eventImage.files[0];
-
-    // const imageFile = URL.createObjectURL(eventImage.files[0]);
-    // function getBase64(file) {
-    //   return new Promise((resolve, reject) => {
-    //     const reader = new FileReader();
-    //     reader.readAsDataURL(file);
-    //     reader.onload = () => resolve(reader.result);
-    //     reader.onerror = error => reject(error);
-    //   });
-    // }
-    // console.log(imageFile);
     if (imageFile) {
       newImage = imageFile;
-      // newImage = URL.createObjectURL(imageFile);
-      //   // function getBase64(file) {
-      //   //   return new Promise((resolve, reject) => {
-      //   //     const reader = new FileReader();
-      //   //     reader.readAsDataURL(file);
-      //   //     reader.onload = () => resolve(reader.result);
-      //   //     reader.onerror = error => reject(error);
-      //   //   });
-      //   // }
-
-      //   // var file = document.querySelector('#files > input[type="file"]').files[0];
-      //   base64 = await getBase64(imageFile);
-      //   console.log(base64);
     }
     onSubmitForm({
       event: event.value,
@@ -74,7 +45,6 @@ const EventForm = ({ value, onSubmitForm }) => {
       date: date.value,
       description: description.value,
       eventImage: newImage
-      // eventImage: base64
     });
   };
   return (
@@ -148,12 +118,6 @@ const EventForm = ({ value, onSubmitForm }) => {
             accept="image/png, image/jpeg, image/jpg"
           />
         </Box>
-        {/* <TextField
-          fullWidth
-          name="image"
-          label="image"
-          defaultValue={value?.image || ""}
-        /> */}
         <Button fullWidth type="submit">
           Save
         </Button>

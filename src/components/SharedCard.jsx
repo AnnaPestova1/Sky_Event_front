@@ -1,26 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
-  Box,
   Button,
   Card,
   CardActions,
-  CardActionArea,
   CardContent,
   CardHeader,
   CardMedia,
-  Collapse,
-  Drawer,
   IconButton,
-  Fade,
   Grid,
-  Grow,
   Menu,
   MenuItem,
-  MenuList,
-  Paper,
-  Slide,
-  SwipeableDrawer,
   Typography,
   Dialog,
   DialogContent,
@@ -46,7 +36,6 @@ const SharedCard = ({
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openConfirmation, setOpenConfirmation] = useState(false);
-
   let eventDate = "";
   const eventMap = [
     { value: "comet", displayName: "Comet" },
@@ -72,7 +61,6 @@ const SharedCard = ({
     setAnchorEl(null);
   };
   const eventDetails = eventMap.find(event => event.value === data.event);
-
   const handleOpenConfirmation = () => {
     setOpenConfirmation(true);
   };
@@ -80,14 +68,6 @@ const SharedCard = ({
   const handleCloseConfirmation = () => {
     setOpenConfirmation(false);
   };
-  // function convertBufferToBase64(buffer) {
-  //   let binaryStr = "";
-  //   const byteArray = new Uint8Array(buffer);
-  //   for (let i = 0; i < byteArray.length; i++) {
-  //     binaryStr += String.fromCharCode(byteArray[i]);
-  //   }
-  //   return btoa(binaryStr);
-  // }
   if (data.date) {
     if (!handleSave) {
       eventDate = new Date(data.date).toLocaleDateString(undefined, {
@@ -103,7 +83,6 @@ const SharedCard = ({
         <Card
           elevation={0}
           sx={{
-            // maxWidth: 350,
             height: "100%",
             display: "flex",
             flexDirection: "column"
@@ -198,7 +177,6 @@ const SharedCard = ({
               {data.description}
             </Typography>
           </CardContent>
-
           {handleSave && (
             <CardActions sx={{ justifyContent: "center" }}>
               <Button
@@ -212,11 +190,9 @@ const SharedCard = ({
           )}
         </Card>
       </Grid>
-      {/* confirm delete */}
       <Dialog
         open={openConfirmation}
         onClose={handleCloseConfirmation}
-        // aria-labelledby="delete-dialog-title"
         aria-describedby="delete-dialog-confirmation">
         <DialogContent>
           <DialogContentText id="delete-dialog-confirmation">
@@ -230,11 +206,6 @@ const SharedCard = ({
           </DialogActions>
         </DialogContent>
       </Dialog>
-      {/* <Draggable
-          handle="#draggable-dialog-title"
-          cancel={'[class*="MuiDialogContent-root"]'}>
-          <Paper {...props} />
-        </Draggable> */}
     </>
   );
 };

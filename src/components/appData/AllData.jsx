@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import {
   Alert,
@@ -13,7 +12,6 @@ import {
   Select,
   Snackbar,
   Stack,
-  TablePagination,
   Typography
 } from "@mui/material";
 import { AuthContext } from "../../utils/MyContext";
@@ -31,13 +29,9 @@ const AllData = () => {
   const pageTopRef = useRef(null);
   const navigate = useNavigate();
 
-  console.log("AllData isRegistered", isRegistered);
   useEffect(() => {
-    console.log("useEffect called");
-    console.log(page);
     getAllData(page, filtering)
       .then(response => {
-        console.log("all data response", response);
         setAllData(response.data.data);
         setTotalPage(response.data.totalCount);
       })
@@ -57,7 +51,6 @@ const AllData = () => {
   const handleDelete = id => {
     deleteData(id)
       .then(response => {
-        console.log(response);
         setAllData(allData.filter(data => id !== data._id));
       })
       .catch(error => {
@@ -190,7 +183,5 @@ const AllData = () => {
     </Box>
   );
 };
-
-AllData.propTypes = {};
 
 export default AllData;

@@ -27,7 +27,6 @@ const MainPage = () => {
   const [loading, setLoading] = useState(true);
   const { isRegistered } = useContext(AuthContext);
   const navigate = useNavigate();
-
   const handleChangeYear = event => {
     setYear(event.target.value);
     setLoading(true);

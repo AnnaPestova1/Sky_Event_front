@@ -1,16 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  Box,
-  Grid,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper
-} from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import SharedAPISingleData from "./SharedAPISingleData";
 
 const SharedAPIData = ({ data }) => {

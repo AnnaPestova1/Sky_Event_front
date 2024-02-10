@@ -12,7 +12,6 @@ const CometsData = ({ year, onLoad }) => {
   useEffect(() => {
     getCometsData(year)
       .then(response => {
-        console.log(response.data.cometsData);
         setData(response.data.cometsData);
         onLoad();
       })
@@ -28,7 +27,6 @@ const CometsData = ({ year, onLoad }) => {
         );
       });
   }, [year]);
-  console.log(data);
   const defaultImage =
     "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001322/GSFC_20171208_Archive_e001322~thumb.jpg";
   const cometData = data.map(comet => {
@@ -50,7 +48,6 @@ const CometsData = ({ year, onLoad }) => {
       image: comet.image || defaultImage
     };
   });
-  console.log(cometData);
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;

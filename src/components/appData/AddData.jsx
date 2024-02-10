@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { Alert, Box, Snackbar } from "@mui/material";
+import React, { useState } from "react";
+import { Alert, Snackbar } from "@mui/material";
 import EventForm from "./EventForm";
 import { useNavigate } from "react-router-dom";
 import { createData } from "../../utils/fetchData";
+
 const AddData = () => {
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");

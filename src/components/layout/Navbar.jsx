@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-
 import PropTypes from "prop-types";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../utils/MyContext";
@@ -9,12 +8,10 @@ import {
   AppBar,
   Box,
   Button,
-  CssBaseline,
   Divider,
   Drawer,
   IconButton,
   List,
-  ListItem,
   ListItemButton,
   ListItemText,
   Snackbar,
@@ -28,18 +25,15 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
   const navigate = useNavigate();
   const location = useLocation();
   const drawerWidth = 240;
-
   const handleLogout = () => {
     logout()
       .then(result => {
         if (result.status === 200) {
           setIsRegistered(false);
           sessionStorage.clear();
-          // navigate("/");
         }
       })
       .catch(error => {
@@ -97,9 +91,6 @@ const Navbar = () => {
       active: location.pathname === "/login"
     }
   ];
-  // const loginItems = [
-
-  // ];
 
   const handleDrawerToggle = () => {
     setMobileOpen(prevState => !prevState);
@@ -126,29 +117,11 @@ const Navbar = () => {
           );
         })}
       </List>
-      {/* <List>
-        {loginItems.map(item => {
-          return (
-            item.visible && (
-              <ListItem key={item.displayName} disablePadding>
-                <ListItemButton
-                  sx={{ textAlign: "center" }}
-                  onClick={item.onClick}>
-                  <ListItemText primary={item.displayName} />
-                </ListItemButton>
-              </ListItem>
-            )
-          );
-        })}
-      </List> */}
     </Box>
   );
-  console.log("isRegistered navbar", isRegistered);
 
   return (
     <header>
-      {/* <Box sx={{ display: "flex" }}> */}
-      {/* <CssBaseline /> */}
       <AppBar component="nav" position="static">
         <Toolbar>
           <IconButton
@@ -184,20 +157,7 @@ const Navbar = () => {
               );
             })}
           </Box>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {/* {loginItems.map(item => {
-              return (
-                item.visible && (
-                  <Button
-                    key={item.displayName}
-                    sx={{ color: "#fff" }}
-                    onClick={item.onClick}>
-                    {item.displayName}
-                  </Button>
-                )
-              );
-            })} */}
-          </Box>
+          <Box sx={{ display: { xs: "none", sm: "block" } }}></Box>
         </Toolbar>
       </AppBar>
       <nav>
@@ -218,7 +178,6 @@ const Navbar = () => {
           {drawer}
         </Drawer>
       </nav>
-      {/* </Box> */}
       <Snackbar
         open={openError}
         autoHideDuration={5000}

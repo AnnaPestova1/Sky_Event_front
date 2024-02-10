@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import {
-  Alert,
-  Box,
-  Snackbar,
-  TableCell,
-  TableRow,
-  Button
-} from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
 import SharedCard from "../SharedCard";
 import { createData } from "../../utils/fetchData";
 
@@ -16,14 +9,6 @@ const SharedAPISingleData = ({ data }) => {
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [saved, setSaved] = useState(false);
-  const eventMap = [
-    { value: "comet", displayName: "Comet" },
-    { value: "asteroid", displayName: "Asteroid" },
-    { value: "meteor_shower", displayName: "Meteor Shower" },
-    { value: "solar_eclipse", displayName: "Solar Eclipse" },
-    { value: "lunar_eclipse", displayName: "Lunar Eclipse" }
-  ];
-  const date = new Date(data.date).toLocaleDateString();
   const handleSaveEvent = () => {
     createData(data)
       .then(() => {
