@@ -73,7 +73,9 @@ const Login = () => {
           handleLogin(e);
           e.currentTarget.reset();
         }}>
-        <Typography variant="h3">Login</Typography>
+        <Typography variant="h3" mb="50px">
+          Login
+        </Typography>
 
         <TextField
           required

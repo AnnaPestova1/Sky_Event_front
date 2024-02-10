@@ -84,7 +84,9 @@ const Register = () => {
           console.log(e.currentTarget);
           e.currentTarget.reset();
         }}>
-        <Typography variant="h3">Register</Typography>
+        <Typography variant="h3" mb="50px">
+          Register
+        </Typography>
         <TextField
           required
           name="name"
