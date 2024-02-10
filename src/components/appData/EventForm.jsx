@@ -35,6 +35,7 @@ const EventForm = ({ value, onSubmitForm }) => {
   }
 
   const handleSubmit = async e => {
+    //handle save image as formData
     let newImage = value?.eventImage || "";
     const { event, name, date, description, eventImage } = e.target.elements;
     const imageFile = eventImage.files[0];
