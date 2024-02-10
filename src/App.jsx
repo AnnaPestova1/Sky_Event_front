@@ -25,6 +25,7 @@ function App() {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
     const userName = urlParams.get("name");
+    const error = urlParams.get("error");
     if (token) {
       sessionStorage.setItem("jwtToken", token);
       sessionStorage.setItem("username", userName);
@@ -33,6 +34,10 @@ function App() {
     }
     if (sessionStorage.jwtToken) {
       setIsRegistered(true);
+    }
+    if (error) {
+      setOpenError(true);
+      setErrorMessage(error);
     }
   }, []);
   useEffect(() => {
