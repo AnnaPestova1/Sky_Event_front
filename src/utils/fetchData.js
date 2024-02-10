@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const register = (name, email, password, confirmPassword) => {
   return axios.post(
-    "http://localhost:3000/api/v1/auth/register",
+    `${import.meta.env.VITE_SERVER_URL}/api/v1/auth/register`,
     {
       name: name,
       email: email,
@@ -19,7 +19,7 @@ export const register = (name, email, password, confirmPassword) => {
 
 export const login = (email, password) => {
   return axios.post(
-    "http://localhost:3000/api/v1/auth/login",
+    `${import.meta.env.VITE_SERVER_URL}/api/v1/auth/login`,
     {
       email: email,
       password: password
@@ -33,14 +33,16 @@ export const login = (email, password) => {
 };
 
 export const logout = () => {
-  return axios.post("http://localhost:3000/api/v1/auth/logout");
+  return axios.post(`${import.meta.env.VITE_SERVER_URL}/api/v1/auth/logout`);
 };
 
 export const getAllData = (page, filtering) => {
   console.log(page);
   const jwtToken = sessionStorage.getItem("jwtToken");
   return axios.get(
-    `http://localhost:3000/api/v1/data?page=${page}&filtering=${filtering}`,
+    `${
+      import.meta.env.VITE_SERVER_URL
+    }/api/v1/data?page=${page}&filtering=${filtering}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +54,7 @@ export const getAllData = (page, filtering) => {
 
 export const getSingleData = dataId => {
   const jwtToken = sessionStorage.getItem("jwtToken");
-  return axios.get(`http://localhost:3000/api/v1/data/${dataId}`, {
+  return axios.get(`${import.meta.env.VITE_SERVER_URL}/api/v1/data/${dataId}`, {
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${jwtToken}`
@@ -64,7 +66,7 @@ export const createData = data => {
   console.log("fetch create data", data);
   const jwtToken = sessionStorage.getItem("jwtToken");
   return axios.post(
-    `http://localhost:3000/api/v1/data`,
+    `${import.meta.env.VITE_SERVER_URL}/api/v1/data`,
     {
       ...data
     },
@@ -80,50 +82,63 @@ export const createData = data => {
 export const editData = data => {
   console.log("fetch patch data", data);
   const jwtToken = sessionStorage.getItem("jwtToken");
-  return axios.patch(`http://localhost:3000/api/v1/data/${data._id}`, data, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      "Authorization": `Bearer ${jwtToken}`
+  return axios.patch(
+    `${import.meta.env.VITE_SERVER_URL}/api/v1/data/${data._id}`,
+    data,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Authorization": `Bearer ${jwtToken}`
+      }
     }
-  });
+  );
 };
 
 export const deleteData = dataId => {
   const jwtToken = sessionStorage.getItem("jwtToken");
-  return axios.delete(`http://localhost:3000/api/v1/data/${dataId}`, {
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${jwtToken}`
+  return axios.delete(
+    `${import.meta.env.VITE_SERVER_URL}/api/v1/data/${dataId}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${jwtToken}`
+      }
     }
-  });
+  );
 };
 
 export const getCometsData = year => {
   const jwtToken = sessionStorage.getItem("jwtToken");
-  return axios.get(`http://localhost:3000/api/v1/apiData/comets/${year}`, {
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${jwtToken}`
+  return axios.get(
+    `${import.meta.env.VITE_SERVER_URL}/api/v1/apiData/comets/${year}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${jwtToken}`
+      }
     }
-  });
+  );
 };
 
 export const getAsteroidsData = year => {
   console.log(year);
   const jwtToken = sessionStorage.getItem("jwtToken");
   console.log(jwtToken);
-  return axios.get(`http://localhost:3000/api/v1/apiData/asteroids/${year}`, {
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${jwtToken}`
+  return axios.get(
+    `${import.meta.env.VITE_SERVER_URL}/api/v1/apiData/asteroids/${year}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${jwtToken}`
+      }
     }
-  });
+  );
 };
 
 export const getSolarEclipsesData = year => {
   const jwtToken = sessionStorage.getItem("jwtToken");
   return axios.get(
-    `http://localhost:3000/api/v1/apiData/solarEclipses/${year}`,
+    `${import.meta.env.VITE_SERVER_URL}/api/v1/apiData/solarEclipses/${year}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -136,7 +151,7 @@ export const getSolarEclipsesData = year => {
 export const getLunarEclipsesData = year => {
   const jwtToken = sessionStorage.getItem("jwtToken");
   return axios.get(
-    `http://localhost:3000/api/v1/apiData/lunarEclipses/${year}`,
+    `${import.meta.env.VITE_SERVER_URL}/api/v1/apiData/lunarEclipses/${year}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -149,7 +164,7 @@ export const getLunarEclipsesData = year => {
 export const getMeteorShowersData = year => {
   const jwtToken = sessionStorage.getItem("jwtToken");
   return axios.get(
-    `http://localhost:3000/api/v1/apiData/meteorShowers/${year}`,
+    `${import.meta.env.VITE_SERVER_URL}/api/v1/apiData/meteorShowers/${year}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -160,11 +175,14 @@ export const getMeteorShowersData = year => {
 };
 
 export const getNASAPictureOfTheDay = () => {
-  return axios.get(`http://localhost:3000/api/v1/apiImg/NASAPictureOfTheDay`, {
-    headers: {
-      "Content-Type": "application/json"
+  return axios.get(
+    `${import.meta.env.VITE_SERVER_URL}/api/v1/apiImg/NASAPictureOfTheDay`,
+    {
+      headers: {
+        "Content-Type": "application/json"
+      }
     }
-  });
+  );
 };
 
 export const getGoogleOAuthURL = () => {
