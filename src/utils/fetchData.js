@@ -82,7 +82,8 @@ export const editData = data => {
   const jwtToken = sessionStorage.getItem("jwtToken");
   return axios.patch(`http://localhost:3000/api/v1/data/${data._id}`, data, {
     headers: {
-      "Content-Type": "application/json",
+      // "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
       "Authorization": `Bearer ${jwtToken}`
     }
   });

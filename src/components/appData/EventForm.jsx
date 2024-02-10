@@ -37,10 +37,12 @@ const EventForm = ({ value, onSubmitForm }) => {
 
   const handleSubmit = async e => {
     console.log(e);
-    let base64 = value?.eventImage || "";
+    // let base64 = value?.eventImage || "";
+    let newImage = value?.eventImage || "";
     const { event, name, date, description, eventImage } = e.target.elements;
     const imageFile = eventImage.files[0];
 
+    // const imageFile = URL.createObjectURL(eventImage.files[0]);
     // function getBase64(file) {
     //   return new Promise((resolve, reject) => {
     //     const reader = new FileReader();
@@ -49,27 +51,30 @@ const EventForm = ({ value, onSubmitForm }) => {
     //     reader.onerror = error => reject(error);
     //   });
     // }
-    console.log(imageFile);
+    // console.log(imageFile);
     if (imageFile) {
-      // function getBase64(file) {
-      //   return new Promise((resolve, reject) => {
-      //     const reader = new FileReader();
-      //     reader.readAsDataURL(file);
-      //     reader.onload = () => resolve(reader.result);
-      //     reader.onerror = error => reject(error);
-      //   });
-      // }
+      newImage = imageFile;
+      // newImage = URL.createObjectURL(imageFile);
+      //   // function getBase64(file) {
+      //   //   return new Promise((resolve, reject) => {
+      //   //     const reader = new FileReader();
+      //   //     reader.readAsDataURL(file);
+      //   //     reader.onload = () => resolve(reader.result);
+      //   //     reader.onerror = error => reject(error);
+      //   //   });
+      //   // }
 
-      // var file = document.querySelector('#files > input[type="file"]').files[0];
-      base64 = await getBase64(imageFile);
-      console.log(base64);
+      //   // var file = document.querySelector('#files > input[type="file"]').files[0];
+      //   base64 = await getBase64(imageFile);
+      //   console.log(base64);
     }
     onSubmitForm({
       event: event.value,
       name: name.value,
       date: date.value,
       description: description.value,
-      eventImage: base64
+      eventImage: newImage
+      // eventImage: base64
     });
   };
   return (
