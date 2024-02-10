@@ -21,7 +21,6 @@ export const theme = createTheme({
     h6: {
       fontFamily: "Sixtyfour"
     }
-    // fontSize: 20
   },
 
   palette: {
