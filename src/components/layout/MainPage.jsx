@@ -12,6 +12,7 @@ import {
   Box,
   Typography
 } from "@mui/material";
+import Google from "@mui/icons-material/Google";
 import { AuthContext } from "../../utils/MyContext";
 import { getGoogleOAuthURL } from "../../utils/fetchData";
 import CometsData from "../api-data/CometsData";
@@ -132,7 +133,10 @@ const MainPage = () => {
             </Button>
           </Box>
           <Box display="flex" justifyContent="center" m="10px">
-            <Button variant="outlined" href={getGoogleOAuthURL()}>
+            <Button
+              startIcon={<Google />}
+              variant="outlined"
+              href={getGoogleOAuthURL()}>
               Login with Google
             </Button>
           </Box>

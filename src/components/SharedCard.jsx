@@ -28,6 +28,7 @@ import {
   DialogActions
 } from "@mui/material";
 import {
+  Event,
   Delete,
   Edit,
   Favorite,
@@ -35,7 +36,14 @@ import {
   MoreVert
 } from "@mui/icons-material";
 
-const SharedCard = ({ data, handleDelete, handleEdit, handleSave, saved }) => {
+const SharedCard = ({
+  data,
+  handleCalendar,
+  handleDelete,
+  handleEdit,
+  handleSave,
+  saved
+}) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openConfirmation, setOpenConfirmation] = useState(false);
 
@@ -150,6 +158,9 @@ const SharedCard = ({ data, handleDelete, handleEdit, handleSave, saved }) => {
             MenuListProps={{
               "aria-labelledby": "card-header-buttons"
             }}>
+            <MenuItem onClick={handleCalendar}>
+              <Button startIcon={<Event />}>To calendar</Button>
+            </MenuItem>
             <MenuItem onClick={handleEdit}>
               <Button startIcon={<Edit />}>Edit</Button>
             </MenuItem>
@@ -230,6 +241,7 @@ const SharedCard = ({ data, handleDelete, handleEdit, handleSave, saved }) => {
 
 SharedCard.propTypes = {
   data: PropTypes.object,
+  handleCalendar: PropTypes.func,
   handleDelete: PropTypes.func,
   handleEdit: PropTypes.func,
   handleSave: PropTypes.func,
