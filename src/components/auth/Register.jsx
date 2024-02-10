@@ -128,7 +128,7 @@ const Register = () => {
             )
           }}
         />
-        <Button type="submit">Login</Button>
+        <Button type="submit">Register</Button>
       </Box>
       {/* )} */}
       <Snackbar
