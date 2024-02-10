@@ -42,7 +42,7 @@ const AllData = () => {
         setTotalPage(response.data.totalCount);
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
         setOpenError(true);
         setErrorMessage(
           error?.response?.data?.message ||
@@ -61,7 +61,7 @@ const AllData = () => {
         setAllData(allData.filter(data => id !== data._id));
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
         setOpenError(true);
         setErrorMessage(
           error?.response?.data?.message ||
@@ -180,7 +180,7 @@ const AllData = () => {
       )}
       <Snackbar
         open={openError}
-        autoHideDuration={3000}
+        autoHideDuration={5000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}>
         <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>

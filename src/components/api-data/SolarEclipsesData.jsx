@@ -21,7 +21,7 @@ const SolarEclipsesData = ({ year, onLoad }) => {
         onLoad();
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
         setOpenError(true);
         setErrorMessage(
           error?.response?.data?.message ||
@@ -65,7 +65,7 @@ const SolarEclipsesData = ({ year, onLoad }) => {
       <SharedAPIData data={eclipseData} />
       <Snackbar
         open={openError}
-        autoHideDuration={3000}
+        autoHideDuration={5000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}>
         <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>

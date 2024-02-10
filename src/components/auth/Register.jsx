@@ -44,7 +44,7 @@ const Register = () => {
         }
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
         setOpenError(true);
         // console.log(error.response.data?.message);
         setErrorMessage(error.response.data?.message);
@@ -152,7 +152,7 @@ const Register = () => {
       {/* )} */}
       <Snackbar
         open={openError}
-        autoHideDuration={3000}
+        autoHideDuration={5000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}>
         <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>

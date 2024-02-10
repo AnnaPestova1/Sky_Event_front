@@ -31,7 +31,7 @@ const SharedAPISingleData = ({ data }) => {
         setSaved(true);
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
         setOpenError(true);
         setErrorMessage(
           error?.response?.data?.message ||
@@ -55,7 +55,7 @@ const SharedAPISingleData = ({ data }) => {
       <SharedCard data={data} handleSave={handleSaveEvent} saved={saved} />
       <Snackbar
         open={open}
-        autoHideDuration={3000}
+        autoHideDuration={5000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}>
         <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
@@ -64,7 +64,7 @@ const SharedAPISingleData = ({ data }) => {
       </Snackbar>
       <Snackbar
         open={openError}
-        autoHideDuration={3000}
+        autoHideDuration={5000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}>
         <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>

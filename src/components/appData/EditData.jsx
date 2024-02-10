@@ -19,7 +19,7 @@ const EditData = () => {
         setData(response.data.data);
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
         setOpenError(true);
         setErrorMessage(
           error?.response?.data?.message ||
@@ -44,7 +44,7 @@ const EditData = () => {
         navigate("/data");
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
         setOpenError(true);
         setErrorMessage(
           error?.response?.data?.message ||
@@ -66,7 +66,7 @@ const EditData = () => {
       {data && <EventForm value={data} onSubmitForm={onSubmitForm} />}
       <Snackbar
         open={openError}
-        autoHideDuration={3000}
+        autoHideDuration={5000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}>
         <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
