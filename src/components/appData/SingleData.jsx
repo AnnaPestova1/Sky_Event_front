@@ -6,7 +6,9 @@ import { saveBlobAsFile } from "../../utils/helperFunc";
 import SharedCard from "../SharedCard";
 
 const SingleData = ({ data, handleDelete }) => {
+  //handle data to be shown in the card
   const navigate = useNavigate();
+  //handle 5 types of data from MongoDB
   const eventMap = [
     { value: "comet", image: "/comet.jpg" },
     { value: "asteroid", image: "/asteroid.jpg" },
@@ -14,6 +16,7 @@ const SingleData = ({ data, handleDelete }) => {
     { value: "solar_eclipse", image: "/solar_eclipse.jpg" },
     { value: "lunar_eclipse", image: "/lunar_eclipse.jpg" }
   ];
+  //implement add to calendar option
   const handleCalendar = () => {
     const calendar = ical({ name: "add event to calendar" });
     calendar.method(ICalCalendarMethod.REQUEST);
@@ -33,6 +36,7 @@ const SingleData = ({ data, handleDelete }) => {
     const blob = new Blob([calendar.toString()], { type: "text/plain" });
     saveBlobAsFile(blob, `SkyEvent_calendar(${data.event}).ics`);
   };
+
   const handleEditButton = () => {
     let dataId = data._id;
     navigate(`edit/${dataId}`);

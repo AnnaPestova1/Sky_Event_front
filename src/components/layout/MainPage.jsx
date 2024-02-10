@@ -22,6 +22,8 @@ import LunarEclipsesData from "../api-data/LunarEclipsesData";
 import MeteorShowersData from "../api-data/MeteorShowersData";
 
 const MainPage = () => {
+  //Main page that render different layouts for registered and unregistered users.
+  //getGoogleOAuthURL function allows to use Google OAuth
   const [year, setYear] = useState(new Date().getFullYear());
   const [skyEvent, setSkyEvent] = useState("");
   const [loading, setLoading] = useState(true);

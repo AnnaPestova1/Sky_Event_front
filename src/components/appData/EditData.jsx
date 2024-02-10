@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getSingleData, editData } from "../../utils/fetchData";
 
 const EditData = () => {
+  //page for edit saved data
   const [data, setData] = useState(null);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");

@@ -11,7 +11,7 @@ import EditData from "./components/appData/EditData";
 import AddData from "./components/appData/AddData";
 import NotFound from "./components/layout/NotFound";
 import PrivateRoute from "./components/layout/PrivateRoute";
-import Footer from "./components/layout/footer";
+import Footer from "./components/layout/Footer";
 import { Alert, Box, Container, CssBaseline, Snackbar } from "@mui/material";
 import { getNASAPictureOfTheDay } from "./utils/fetchData";
 

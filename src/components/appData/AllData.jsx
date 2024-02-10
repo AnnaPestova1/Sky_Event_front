@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Alert,
@@ -14,12 +14,11 @@ import {
   Stack,
   Typography
 } from "@mui/material";
-import { AuthContext } from "../../utils/MyContext";
 import SingleData from "./SingleData";
 import { getAllData, deleteData } from "../../utils/fetchData";
 
 const AllData = () => {
-  const { isRegistered } = useContext(AuthContext);
+  //show all events, includes filtering and pagination for saved events
   const [allData, setAllData] = useState([]);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -71,14 +70,6 @@ const AllData = () => {
     }
     setOpenError(false);
   };
-  // const handleChangePage = (event, newPage) => {
-  //   setPage(newPage);
-  // };
-
-  // const handleChangeRowsPerPage = event => {
-  //   setRowsPerPage(parseInt(event.target.value, 10));
-  //   setPage(0);
-  // };
   const handleChange = (event, value) => {
     setPage(value);
     pageTopRef.current.scrollIntoView();

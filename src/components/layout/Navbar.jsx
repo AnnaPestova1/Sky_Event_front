@@ -21,6 +21,7 @@ import {
 import { Menu as MenuIcon } from "@mui/icons-material";
 
 const Navbar = () => {
+  //navbar shows different information for registered and unregistered users
   const { isRegistered, setIsRegistered } = useContext(AuthContext);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openError, setOpenError] = useState(false);

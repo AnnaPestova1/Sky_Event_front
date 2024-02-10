@@ -12,6 +12,8 @@ const LunarEclipsesData = ({ year, onLoad }) => {
     "https://images-assets.nasa.gov/image/MAF_20211119_LunarEclipse01/MAF_20211119_LunarEclipse01~thumb.jpg";
   const lunarEclipse =
     "https://images-assets.nasa.gov/image/iss013e78721/iss013e78721~thumb.jpg";
+
+  //receive information about lunar eclipses from json.file stored on Back End
   useEffect(() => {
     getLunarEclipsesData(year)
       .then(response => {

@@ -29,6 +29,7 @@ const CometsData = ({ year, onLoad }) => {
   }, [year]);
   const defaultImage =
     "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001322/GSFC_20171208_Archive_e001322~thumb.jpg";
+  //receive information about comets from NASA API
   const cometData = data.map(comet => {
     return {
       event: "comet",

@@ -34,9 +34,11 @@ const SharedCard = ({
   handleSave,
   saved
 }) => {
+  //shared card for different components. With different layouts for different components.
   const [anchorEl, setAnchorEl] = useState(null);
   const [openConfirmation, setOpenConfirmation] = useState(false);
   let eventDate = "";
+  //handle different events for rendering in card
   const eventMap = [
     { value: "comet", displayName: "Comet" },
     { value: "asteroid", displayName: "Asteroid" },
@@ -60,6 +62,7 @@ const SharedCard = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
+  //handle rendering for different events type in card. Value comes as a props
   const eventDetails = eventMap.find(event => event.value === data.event);
   const handleOpenConfirmation = () => {
     setOpenConfirmation(true);
@@ -68,6 +71,7 @@ const SharedCard = ({
   const handleCloseConfirmation = () => {
     setOpenConfirmation(false);
   };
+  //the MongoDB saves date in UTC time zone. Tried to handle both variants: UTC format date and local time zone date.
   if (data.date) {
     if (!handleSave) {
       eventDate = new Date(data.date).toLocaleDateString(undefined, {

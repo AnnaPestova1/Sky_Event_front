@@ -14,6 +14,8 @@ const SolarEclipsesData = ({ year, onLoad }) => {
     "https://images-assets.nasa.gov/image/NHQ201708210100/NHQ201708210100~thumb.jpg";
   const partialSolarEclipseImg =
     "https://images-assets.nasa.gov/image/NHQ201708210302/NHQ201708210302~thumb.jpg";
+
+  //receive information about solar eclipses from Astronomical Applications Department of the U.S. Naval Observatory API
   useEffect(() => {
     getSolarEclipsesData(year)
       .then(response => {

@@ -8,7 +8,9 @@ const AsteroidsData = ({ year, onLoad }) => {
   const [data, setData] = useState([]);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
+  const defaultImage =
+    "https://images-assets.nasa.gov/image/PIA23195/PIA23195~thumb.jpg";
+  //receive information about asteroids from NASA API
   useEffect(() => {
     getAsteroidsData(year)
       .then(response => {
@@ -27,8 +29,6 @@ const AsteroidsData = ({ year, onLoad }) => {
         );
       });
   }, [year]);
-  const defaultImage =
-    "https://images-assets.nasa.gov/image/PIA23195/PIA23195~thumb.jpg";
   const asteroidData = data.map(a => {
     return {
       event: "asteroid",

@@ -4,6 +4,7 @@ import { Box, Grid } from "@mui/material";
 import SharedAPISingleData from "./SharedAPISingleData";
 
 const SharedAPIData = ({ data }) => {
+  //reusable card to show all events
   return (
     <Box
       component="span"

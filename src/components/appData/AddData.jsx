@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { createData } from "../../utils/fetchData";
 
 const AddData = () => {
+  //manual adding data about an event
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();

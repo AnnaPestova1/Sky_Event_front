@@ -1,3 +1,4 @@
+//helper function to download file for calendar
 export const saveBlobAsFile = (blob, fileName) => {
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);

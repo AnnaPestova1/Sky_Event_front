@@ -9,6 +9,7 @@ const MeteorShowersData = ({ year, onLoad }) => {
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  //receive information about meteor showers from json.file stored on Back End
   useEffect(() => {
     getMeteorShowersData(year)
       .then(response => {

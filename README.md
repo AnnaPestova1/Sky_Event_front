@@ -8,7 +8,7 @@ The Front End repository is here. The Back End repository: https://github.com/An
 
 The Sky Events app allows users to organize the sky events data they want to observe.
 
-The Front End is built on Vite React.
+The Front End is built on Vite React and Material UI.
 The Back end is built on Node.js with Express.
 MongoDB is used as a database.
 

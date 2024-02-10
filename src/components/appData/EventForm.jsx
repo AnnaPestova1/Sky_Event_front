@@ -15,7 +15,9 @@ import {
 import { Image } from "@mui/icons-material";
 
 const EventForm = ({ value, onSubmitForm }) => {
+  //reusable form to add new event or edit existing event
   let dateValue = "";
+  //the MongoDB saves date in UTC time zone. Here the converter to current data for rendering it on date field and saving it in MongoDB
   if (value && value.date !== null) {
     let day = new Date(value.date).getUTCDate();
     let month = new Date(value.date).getUTCMonth();

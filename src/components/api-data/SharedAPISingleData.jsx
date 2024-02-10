@@ -5,6 +5,7 @@ import SharedCard from "../SharedCard";
 import { createData } from "../../utils/fetchData";
 
 const SharedAPISingleData = ({ data }) => {
+  //data reflects all events: comets, asteroids, meteor showers, solar eclipses and lunar eclipses
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
