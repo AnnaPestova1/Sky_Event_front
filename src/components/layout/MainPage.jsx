@@ -137,6 +137,11 @@ const MainPage = () => {
             <Button
               startIcon={<Google />}
               variant="outlined"
+              sx={{
+                "&:hover": {
+                  color: "inherit"
+                }
+              }}
               href={getGoogleOAuthURL()}>
               Login with Google
             </Button>
