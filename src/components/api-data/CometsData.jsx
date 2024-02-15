@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Alert, Snackbar } from "@mui/material";
 import { getCometsData } from "../../utils/fetchData";
-import SharedTable from "./SharedTable";
+import SharedAPIData from "./SharedAPIData";
 
-const CometsData = ({ year }) => {
+const CometsData = ({ year, onLoad }) => {
   const [data, setData] = useState([]);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -12,15 +12,14 @@ const CometsData = ({ year }) => {
   useEffect(() => {
     getCometsData(year)
       .then(response => {
-        console.log(response.data.cometsData);
         setData(response.data.cometsData);
+        onLoad();
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
         setOpenError(true);
         setErrorMessage(
-          error?.response?.data?.msg ||
-            error?.response?.data?.message ||
+          error?.response?.data?.message ||
             error?.response?.data?.error ||
             error?.response?.data ||
             error.message ||
@@ -28,7 +27,9 @@ const CometsData = ({ year }) => {
         );
       });
   }, [year]);
-
+  const defaultImage =
+    "https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001322/GSFC_20171208_Archive_e001322~thumb.jpg";
+  //receive information about comets from NASA API
   const cometData = data.map(comet => {
     return {
       event: "comet",
@@ -44,7 +45,8 @@ const CometsData = ({ year }) => {
         2
       )} au. happens ${comet.cd}, ${
         comet.phys_par_title || "comet total magnitude"
-      } is ${comet.h || comet.phys_par_value}.`
+      } is ${comet.h || comet.phys_par_value}.`,
+      image: comet.image || defaultImage
     };
   });
   const handleClose = (event, reason) => {
@@ -55,10 +57,10 @@ const CometsData = ({ year }) => {
   };
   return (
     <>
-      <SharedTable data={cometData} />
+      <SharedAPIData data={cometData} />
       <Snackbar
         open={openError}
-        autoHideDuration={3000}
+        autoHideDuration={5000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}>
         <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
@@ -70,7 +72,8 @@ const CometsData = ({ year }) => {
 };
 
 CometsData.propTypes = {
-  year: PropTypes.number
+  year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onLoad: PropTypes.func
 };
 
 export default CometsData;

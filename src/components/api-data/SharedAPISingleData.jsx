@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Alert, Snackbar } from "@mui/material";
-import { getMeteorShowersData } from "../../utils/fetchData";
-import SharedAPIData from "./SharedAPIData";
+import SharedCard from "../SharedCard";
+import { createData } from "../../utils/fetchData";
 
-const MeteorShowersData = ({ year, onLoad }) => {
-  const [data, setData] = useState([]);
+const SharedAPISingleData = ({ data }) => {
+  //data reflects all events: comets, asteroids, meteor showers, solar eclipses and lunar eclipses
+  const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
-  //receive information about meteor showers from json.file stored on Back End
-  useEffect(() => {
-    getMeteorShowersData(year)
-      .then(response => {
-        setData(response.data.showersByYear);
-        onLoad();
+  const [saved, setSaved] = useState(false);
+  const handleSaveEvent = () => {
+    createData(data)
+      .then(() => {
+        setOpen(true);
+        setSaved(true);
       })
       .catch(error => {
         console.error(error);
@@ -27,25 +27,27 @@ const MeteorShowersData = ({ year, onLoad }) => {
             "unknown error"
         );
       });
-  }, [year]);
-  const meteorShowerData = data.map(ms => {
-    return {
-      event: "meteor_shower",
-      name: ms.meteorShowerName,
-      date: ms.eventDate,
-      description: ms.description,
-      image: ms.image
-    };
-  });
+  };
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
+
+    setOpen(false);
     setOpenError(false);
   };
   return (
     <>
-      <SharedAPIData data={meteorShowerData} />
+      <SharedCard data={data} handleSave={handleSaveEvent} saved={saved} />
+      <Snackbar
+        open={open}
+        autoHideDuration={5000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          Event saved!
+        </Alert>
+      </Snackbar>
       <Snackbar
         open={openError}
         autoHideDuration={5000}
@@ -59,9 +61,8 @@ const MeteorShowersData = ({ year, onLoad }) => {
   );
 };
 
-MeteorShowersData.propTypes = {
-  year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  onLoad: PropTypes.func
+SharedAPISingleData.propTypes = {
+  data: PropTypes.object
 };
 
-export default MeteorShowersData;
+export default SharedAPISingleData;

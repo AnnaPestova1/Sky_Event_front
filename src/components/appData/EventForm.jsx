@@ -8,18 +8,20 @@ import {
   TextField,
   MenuItem,
   Select,
-  Typography
+  Typography,
+  Avatar,
+  OutlinedInput
 } from "@mui/material";
+import { Image } from "@mui/icons-material";
 
 const EventForm = ({ value, onSubmitForm }) => {
+  //reusable form to add new event or edit existing event
   let dateValue = "";
-  console.log("data from form", value);
+  //the MongoDB saves date in UTC time zone. Here the converter to current data for rendering it on date field and saving it in MongoDB
   if (value && value.date !== null) {
-    console.log(new Date(value.date).getUTCDate());
     let day = new Date(value.date).getUTCDate();
-    let month = new Date(value.date).getUTCMonth();
+    let month = new Date(value.date).getUTCMonth() + 1;
     let year = new Date(value.date).getUTCFullYear();
-
     if (day < 10) {
       day = day.toString().padStart(2, "0");
     }
@@ -29,13 +31,20 @@ const EventForm = ({ value, onSubmitForm }) => {
     dateValue = `${year}-${month}-${day}`;
   }
 
-  const handleSubmit = e => {
-    const { event, name, date, description } = e.target.elements;
+  const handleSubmit = async e => {
+    //handle save image as formData
+    let newImage = value?.eventImage || "";
+    const { event, name, date, description, eventImage } = e.target.elements;
+    const imageFile = eventImage.files[0];
+    if (imageFile) {
+      newImage = imageFile;
+    }
     onSubmitForm({
       event: event.value,
       name: name.value,
       date: date.value,
-      description: description.value
+      description: description.value,
+      eventImage: newImage
     });
   };
   return (
@@ -55,13 +64,16 @@ const EventForm = ({ value, onSubmitForm }) => {
           e.preventDefault();
           handleSubmit(e);
         }}>
-        <Typography variant="h3">Add sky event</Typography>
+        <Typography textAlign="center" variant="h3">
+          {value ? "Edit" : "Add"} sky event
+        </Typography>
         <FormControl required fullWidth>
-          <InputLabel htmlFor="eventType">event type</InputLabel>
+          <InputLabel id="eventType">event type</InputLabel>
           <Select
             fullWidth
             name="event"
-            id="eventType"
+            labelId="eventType"
+            id="events"
             label="event type"
             defaultValue={value?.event || ""}>
             <MenuItem value="comet">Comet</MenuItem>
@@ -94,9 +106,20 @@ const EventForm = ({ value, onSubmitForm }) => {
           defaultValue={value?.description || ""}
           label="description"
         />
-
+        <Box display="flex" gap={2} width="100%" alignItems="center">
+          <Avatar src={value?.eventImage || value?.image} variant="rounded">
+            <Image />
+          </Avatar>
+          <OutlinedInput
+            fullWidth
+            variant="outlined"
+            type="file"
+            name="eventImage"
+            accept="image/png, image/jpeg, image/jpg"
+          />
+        </Box>
         <Button fullWidth type="submit">
-          {value ? "Edit" : "Add"}
+          Save
         </Button>
       </Box>
     </>

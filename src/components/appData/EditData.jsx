@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { Alert, Snackbar } from "@mui/material";
 import EventForm from "./EventForm";
 import { useParams, useNavigate } from "react-router-dom";
 import { getSingleData, editData } from "../../utils/fetchData";
 
 const EditData = () => {
+  //page for edit saved data
   const [data, setData] = useState(null);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -19,11 +19,10 @@ const EditData = () => {
         setData(response.data.data);
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
         setOpenError(true);
         setErrorMessage(
-          error?.response?.data?.msg ||
-            error?.response?.data?.message ||
+          error?.response?.data?.message ||
             error?.response?.data?.error ||
             error?.response?.data ||
             error.message ||
@@ -32,30 +31,18 @@ const EditData = () => {
       });
   }, []);
   const onSubmitForm = eventObject => {
-    console.log(
-      "eventObject",
-      eventObject._id,
-      eventObject.event,
-      eventObject.name,
-      eventObject.date,
-      eventObject.description
-    );
     editData({
       _id: data._id,
-      event: eventObject.event,
-      name: eventObject.name,
-      date: eventObject.date,
-      description: eventObject.description
+      ...eventObject
     })
       .then(() => {
         navigate("/data");
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
         setOpenError(true);
         setErrorMessage(
-          error?.response?.data?.msg ||
-            error?.response?.data?.message ||
+          error?.response?.data?.message ||
             error?.response?.data?.error ||
             error?.response?.data ||
             error.message ||
@@ -74,7 +61,7 @@ const EditData = () => {
       {data && <EventForm value={data} onSubmitForm={onSubmitForm} />}
       <Snackbar
         open={openError}
-        autoHideDuration={3000}
+        autoHideDuration={5000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}>
         <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
