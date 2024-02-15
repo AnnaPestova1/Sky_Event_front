@@ -22,6 +22,7 @@ const MainPage = () => {
   const [skyEvent, setSkyEvent] = useState("");
   const { isRegistered } = useContext(AuthContext);
   const navigate = useNavigate();
+
   const handleChangeYear = event => {
     setYear(event.target.value);
   };
@@ -29,47 +30,49 @@ const MainPage = () => {
     setSkyEvent(event.target.value);
   };
   return (
-    <>
-      <h1>Sky Events</h1>
+    <Box>
+      <Box display="flex" justifyContent="center">
+        <h1>Sky Events</h1>
+      </Box>
       {isRegistered ? (
         <>
-          <FormControl sx={{ m: 1, maxWidth: 120 }}>
-            <TextField
-              id="choose_year"
-              label="Year"
-              value={year}
-              onChange={handleChangeYear}
-              type="number"
-            />
-          </FormControl>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="choose_sky_event">Sky Event</InputLabel>
-            <Select
-              labelId="choose_sky_event"
-              id="choose_sky_event"
-              value={skyEvent}
-              label="Sky Event"
-              onChange={handleChangeSkyEvent}>
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={"comet"}>Comet</MenuItem>
-              <MenuItem value={"asteroid"}>Asteroid</MenuItem>
-              <MenuItem value={"meteor_shower"}>Meteor Shower</MenuItem>
-              <MenuItem value={"solar_eclipse"}>Solar Eclipse</MenuItem>
-              <MenuItem value={"lunar_eclipse"}>Lunar Eclipse</MenuItem>
-            </Select>
-          </FormControl>
           <Box display="flex" justifyContent="center" overflow="auto">
-            {skyEvent === "comet" && <CometsData year={year} />}
-            {skyEvent === "asteroid" && <AsteroidsData year={year} />}
-            {skyEvent === "meteor_shower" && <MeteorShowersData year={year} />}
-            {skyEvent === "solar_eclipse" && <SolarEclipsesData year={year} />}
-            {skyEvent === "lunar_eclipse" && <LunarEclipsesData year={year} />}
+            <FormControl sx={{ m: 1, maxWidth: 170 }}>
+              <TextField
+                id="choose_year"
+                label="Year"
+                value={year}
+                onChange={handleChangeYear}
+                type="number"
+              />
+            </FormControl>
+            <FormControl sx={{ m: 1, minWidth: 170 }}>
+              <InputLabel id="choose_sky_event">Sky Event</InputLabel>
+              <Select
+                labelId="choose_sky_event"
+                id="choose_sky_event"
+                value={skyEvent}
+                label="Sky Event"
+                onChange={handleChangeSkyEvent}>
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={"comet"}>Comet</MenuItem>
+                <MenuItem value={"asteroid"}>Asteroid</MenuItem>
+                <MenuItem value={"meteor_shower"}>Meteor Shower</MenuItem>
+                <MenuItem value={"solar_eclipse"}>Solar Eclipse</MenuItem>
+                <MenuItem value={"lunar_eclipse"}>Lunar Eclipse</MenuItem>
+              </Select>
+            </FormControl>
           </Box>
+          {skyEvent === "comet" && <CometsData year={year} />}
+          {skyEvent === "asteroid" && <AsteroidsData year={year} />}
+          {skyEvent === "meteor_shower" && <MeteorShowersData year={year} />}
+          {skyEvent === "solar_eclipse" && <SolarEclipsesData year={year} />}
+          {skyEvent === "lunar_eclipse" && <LunarEclipsesData year={year} />}
         </>
       ) : (
-        <Box display="flex" gap={1} justifyContent="center">
+        <Box gap={1} display="flex" justifyContent="center">
           <Button variant="outlined" onClick={() => navigate("/register")}>
             Register
           </Button>
@@ -78,7 +81,7 @@ const MainPage = () => {
           </Button>
         </Box>
       )}
-    </>
+    </Box>
   );
 };
 

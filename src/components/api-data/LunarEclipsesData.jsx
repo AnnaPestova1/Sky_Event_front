@@ -28,9 +28,8 @@ const LunarEclipsesData = ({ year }) => {
       });
   }, [year]);
 
-  const eclipseData = data.map((eclipse, id) => {
+  const eclipseData = data.map(eclipse => {
     return {
-      id: id,
       event: "lunar_eclipse",
       name: eclipse.name,
       date: eclipse.date,

@@ -6,7 +6,9 @@ import {
   Button,
   Card,
   CardActions,
+  CardActionArea,
   CardContent,
+  CardMedia,
   Grid,
   Typography
 } from "@mui/material";
@@ -15,11 +17,23 @@ const SingleData = ({ data, handleDelete }) => {
   const navigate = useNavigate();
   let eventDate = "";
   const eventMap = [
-    { value: "comet", displayName: "Comet" },
-    { value: "asteroid", displayName: "Asteroid" },
-    { value: "meteor_shower", displayName: "Meteor Shower" },
-    { value: "solar_eclipse", displayName: "Solar Eclipse" },
-    { value: "lunar_eclipse", displayName: "Lunar Eclipse" }
+    { value: "comet", displayName: "Comet", image: "comet.jpg" },
+    { value: "asteroid", displayName: "Asteroid", image: "asteroid.jpg" },
+    {
+      value: "meteor_shower",
+      displayName: "Meteor Shower",
+      image: "meteor_shower.jpeg"
+    },
+    {
+      value: "solar_eclipse",
+      displayName: "Solar Eclipse",
+      image: "solar_eclipse.jpg"
+    },
+    {
+      value: "lunar_eclipse",
+      displayName: "Lunar Eclipse",
+      image: "lunar_eclipse.jpg"
+    }
   ];
   if (data.date) {
     eventDate = new Date(data.date).toLocaleDateString(undefined, {
@@ -34,54 +48,80 @@ const SingleData = ({ data, handleDelete }) => {
   return (
     <Grid item xs={12} md={6}>
       <Card variant="outlined" sx={{ maxWidth: 500, height: "100%" }}>
-        <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <CardContent sx={{ flex: "1 0 auto" }}>
-            <Typography variant="h6" color="text.secondary" component="div">
-              event
-            </Typography>
-            <Typography variant="body" component="div">
-              {eventMap.map(event => {
-                if (event.value === data.event) {
-                  return event.displayName;
-                }
-              })}
-            </Typography>
-          </CardContent>
-          <CardContent sx={{ flex: "1 0 auto" }}>
-            <Typography variant="h6" color="text.secondary" component="div">
-              name
-            </Typography>
-            <Typography variant="body" component="div">
-              {data.name}
-            </Typography>
-          </CardContent>
-        </Box>
-        <Box sx={{ display: "flex", flexDirection: "row" }}>
-          {data.date ? (
+        <CardActionArea sx={{ height: "90%" }} onClick={handleEditButton}>
+          {eventMap.map((event, id) => {
+            if (event.value === data.event) {
+              return (
+                <CardMedia
+                  component="img"
+                  height="200"
+                  key={id}
+                  image={event.image}
+                  alt={event.value}
+                />
+              );
+            }
+          })}
+
+          <Box sx={{ display: "flex", flexDirection: "row" }}>
             <CardContent sx={{ flex: "1 0 auto" }}>
-              <Typography variant="h6" color="text.secondary" component="span">
-                date:
+              <Typography
+                variant="subtitle2"
+                color="text.secondary"
+                component="div">
+                event
               </Typography>
-              <Typography variant="body" component="span">
-                {eventDate}
+              <Typography variant="body" component="div">
+                {eventMap.map(event => {
+                  if (event.value === data.event) {
+                    return event.displayName;
+                  }
+                })}
               </Typography>
             </CardContent>
-          ) : null}
-        </Box>
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <CardContent sx={{ flex: "1 0 auto" }}>
-            <Typography variant="h6" color="text.secondary" component="div">
-              description
-            </Typography>
-            <Typography variant="body" component="div">
-              {data.description}
-            </Typography>
-          </CardContent>
-        </Box>
-        <CardActions>
-          <Button size="small" onClick={handleEditButton}>
-            Edit
-          </Button>
+            {data.date ? (
+              <CardContent sx={{ flex: "1 0 auto" }}>
+                <Typography
+                  variant="subtitle2"
+                  color="text.secondary"
+                  component="span">
+                  date:
+                </Typography>
+                <Typography variant="body" component="span">
+                  {" "}
+                  {eventDate}
+                </Typography>
+              </CardContent>
+            ) : null}
+          </Box>
+          <Box sx={{ display: "flex", flexDirection: "row" }}>
+            <CardContent sx={{ flex: "1 0 auto" }}>
+              <Typography
+                variant="subtitle2"
+                color="text.secondary"
+                component="div">
+                name
+              </Typography>
+              <Typography variant="body" component="div">
+                {data.name}
+              </Typography>
+            </CardContent>
+          </Box>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <CardContent sx={{ flex: "1 0 auto" }}>
+              <Typography
+                variant="subtitle2"
+                color="text.secondary"
+                component="div">
+                description
+              </Typography>
+              <Typography variant="body" component="div">
+                {data.description}
+              </Typography>
+            </CardContent>
+          </Box>
+        </CardActionArea>
+        <CardActions sx={{ justifyContent: "center" }}>
           <Button size="small" onClick={handleDelete}>
             Delete
           </Button>

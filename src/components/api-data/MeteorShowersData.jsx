@@ -28,9 +28,8 @@ const MeteorShowersData = ({ year }) => {
       });
   }, [year]);
 
-  const meteorShowerData = data.map((ms, id) => {
+  const meteorShowerData = data.map(ms => {
     return {
-      id: id,
       event: "meteor_shower",
       name: ms.meteorShowerName,
       date: ms.eventDate,

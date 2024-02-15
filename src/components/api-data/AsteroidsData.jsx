@@ -12,8 +12,8 @@ const AsteroidsData = ({ year }) => {
   useEffect(() => {
     getAsteroidsData(year)
       .then(response => {
-        console.log(response.data.data.data);
-        setData(response.data.data.data);
+        console.log(response.data.asteroidsData);
+        setData(response.data.asteroidsData);
       })
       .catch(error => {
         console.log(error);
@@ -29,15 +29,22 @@ const AsteroidsData = ({ year }) => {
       });
   }, [year]);
 
-  const asteroidData = data.map((a, id) => {
+  const asteroidData = data.map(a => {
     return {
-      id: id,
-      event: "comet",
-      name: a[0],
-      date: a[3],
-      description: `Asteroid ${
-        a[0]
-      } approach. Minimal distance from Earth ${Number(a[5]).toFixed(4)} au`
+      event: "asteroid",
+      name: a.fullname.trim() || a.des,
+      date: a.cd,
+      description: `Asteroid ${a.fullname.trim() || a.des} has ${
+        a.orbit_class
+      } orbit class. First observation was ${
+        a.first_obs
+      }, asteroid was last time observed ${
+        a.last_obs
+      }.  Minimal distance from Earth is ${Number(a.dist_min).toFixed(
+        4
+      )} au. happens ${a.cd}, ${
+        a.phys_par_title || "comet total magnitude"
+      } is ${a.h || a.phys_par_value}.`
     };
   });
   const handleClose = (event, reason) => {
