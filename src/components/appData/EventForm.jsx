@@ -20,16 +20,13 @@ const EventForm = ({ value, onSubmitForm }) => {
   //the MongoDB saves date in UTC time zone. Here the converter to current data for rendering it on date field and saving it in MongoDB
   if (value && value.date !== null) {
     let day = new Date(value.date).getUTCDate();
-    let month = new Date(value.date).getUTCMonth();
+    let month = new Date(value.date).getUTCMonth() + 1;
     let year = new Date(value.date).getUTCFullYear();
     if (day < 10) {
       day = day.toString().padStart(2, "0");
     }
-    if (month < 10 && month !== 0) {
+    if (month < 10) {
       month = month.toString().padStart(2, "0");
-    }
-    if (month === 0) {
-      month = "01";
     }
     dateValue = `${year}-${month}-${day}`;
   }
