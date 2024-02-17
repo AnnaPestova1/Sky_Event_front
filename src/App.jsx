@@ -38,6 +38,7 @@ function App() {
     if (error) {
       setOpenError(true);
       setErrorMessage(error);
+      window.location = "/";
     }
   }, []);
   useEffect(() => {
