@@ -83,13 +83,14 @@ const SharedCard = ({
   }
   return (
     <>
-      <Grid item xs={12} sm={6} md={4} lg={3}>
+      <Grid item xs={12} sm={6} md={4} lg={3} spacing={2}>
         <Card
           elevation={0}
           sx={{
             height: "100%",
             display: "flex",
-            flexDirection: "column"
+            flexDirection: "column",
+            width: "270px"
           }}>
           <CardHeader
             sx={{

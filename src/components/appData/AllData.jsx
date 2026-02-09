@@ -90,6 +90,7 @@ const AllData = () => {
       justifyContent="center"
       alignItems="center"
       minWidth={275}
+      width='100%'
       ref={pageTopRef}>
       <Box
         flexDirection="row"
@@ -142,7 +143,7 @@ const AllData = () => {
       )}
       {allData.length > 0 && (
         <>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} >
             {allData.map(data => (
               <SingleData
                 data={data}
