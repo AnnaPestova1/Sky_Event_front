@@ -90,8 +90,10 @@ function App() {
               minHeight: "calc(100%-40px)",
               display: "flex",
               flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center"
+              justifyContent: "flex-start",
+              alignItems: "center",
+              width: "100%",
+              marginTop: "40px"
             }}>
             <Routes>
               <Route path="/" element={<MainPage />} />

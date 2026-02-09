@@ -38,7 +38,7 @@ const MainPage = () => {
     setLoading(true);
   };
   return (
-    <Box>
+    <Box display="flex" flexDirection="column" alignItems="center" width="100%">
       <Box display="flex" justifyContent="center" mb={5}>
         <Typography variant="h3">Sky Events</Typography>
       </Box>

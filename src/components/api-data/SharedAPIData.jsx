@@ -11,7 +11,7 @@ const SharedAPIData = ({ data }) => {
       p={2}
       sx={{
         display: "flex",
-
+        width: "100%",
         minWidth: 275
       }}>
       <Grid container spacing={2}>
